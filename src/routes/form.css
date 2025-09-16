@@ -1,0 +1,99 @@
+.login-div{
+    
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-div > button{
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #205ad7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-div > button:hover{
+    background-color: #3352ae;
+}
+
+.login-div > a{
+    font-size: 14px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.login-form input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+
+/* ============================= */
+
+.register-div{
+    
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.register-div > button{
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #205ad7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.register-div > button:hover{
+    background-color: #3352ae;
+}
+
+.register-div > a{
+    font-size: 14px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.register-form input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
