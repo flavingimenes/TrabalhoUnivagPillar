@@ -1,0 +1,10 @@
+O que é:
+Contém a configuração de roteamento da aplicação (normalmente com react-router-dom).
+
+Exemplo:
+
+Router.jsx → define todas as rotas (<Route path="/login" element={<Login />} />)
+
+ProtectedRoute.jsx → um wrapper que protege rotas privadas (exige login).
+
+Diferença: É o "mapa" que liga as pages às URLs.
