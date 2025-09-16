@@ -1,17 +1,17 @@
-import './App.css'
-
-
-import {Outlet} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from './routes/Login'
+import Register from './routes/Register'
+import ErrorPage from './routes/ErrorPage'
 
 function App() {
-
   return (
-    <>
-    <div className='welcome'>
-      <h1>Bem-Vindo ao <strong className='anton-black-regular'>Pillar</strong></h1>
-    </div>
-      <Outlet />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
