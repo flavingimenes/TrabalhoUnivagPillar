@@ -1,0 +1,10 @@
+O que é:
+Pasta para guardar funções auxiliares e helpers que não dependem do React (ou seja, não usam hooks, estado ou JSX).
+
+Exemplo:
+formatDate.js → formata datas (2025-09-16 → 16/09/2025)
+calculateAge.js → calcula idade a partir da data de nascimento
+validators.js → valida e-mails, senhas, CPF etc.
+
+Diferença:
+Diferente de hooks/ (que contém lógica com React), aqui ficam funções puras e utilitárias que podem ser chamadas em qualquer lugar do projeto (components, hooks, pages, até no backend).
