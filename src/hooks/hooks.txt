@@ -1,0 +1,9 @@
+O que é:
+Contém hooks personalizados (custom hooks) — funções que usam lógica do React (useState, useEffect, etc.) para reaproveitamento.
+
+Exemplo:
+useAuth.js → gerencia autenticação
+useFetch.js → faz chamadas de API
+useDarkMode.js → alterna tema claro/escuro
+
+Diferença: Serve para organizar regras de negócio e lógica reutilizável, sem precisar repetir código em vários componentes.

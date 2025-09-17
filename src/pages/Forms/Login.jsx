@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './form.css'
+import './logo.css'
+import logoPillar from '../../assets/PillarLogo-removebg.png'
 
 const Login = () => {
   return (
     <>
       <div className='main-forms'>
         <div className='login-div'>
-          <h1>Login</h1>
+          <img src={logoPillar} alt="logo pillar" className='logo'/>
           <form className='login-form'>
             <input type="text" id="nome" name="nome" placeholder='Nome ou Email' />
             <br />

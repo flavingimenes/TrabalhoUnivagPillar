@@ -1,0 +1,9 @@
+O que é:
+Contém componentes reutilizáveis que podem aparecer em várias páginas.
+
+Exemplo:
+Navbar.jsx
+Footer.jsx
+Button.jsx
+
+Diferença: Enquanto pages/ são telas completas, components/ são peças menores usadas em várias partes do app.

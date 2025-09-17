@@ -1,0 +1,9 @@
+O que é:
+Contém as páginas da aplicação. Cada página corresponde a uma rota (ex.: /login, /dashboard, /profile).
+
+Exemplo:
+Home.jsx → /
+Login.jsx → /login
+Dashboard.jsx → /dashboard
+
+Diferença: É a camada mais alta da interface, geralmente usada no React Router para definir as rotas.

@@ -1,0 +1,9 @@
+O que é:
+Onde ficam os recursos estáticos: imagens, ícones, fontes, vídeos, estilos globais etc.
+
+Exemplo:
+logo.png
+background.jpg
+fonts/ArchivoBlack.ttf
+
+Diferença: É a "biblioteca de mídia" do projeto.
