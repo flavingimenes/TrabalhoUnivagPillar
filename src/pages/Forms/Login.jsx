@@ -15,7 +15,7 @@ const Login = () => {
             <br />
             <input type="password" id="senha" name="senha" placeholder='Senha' />
           </form>
-          <button>Entrar!</button>
+          <Link to="/home" className='button'>Entrar!</Link>
           <br />
           <Link to="/register">Criar nova conta</Link>
         </div>
