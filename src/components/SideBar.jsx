@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "./SideBar.css";
 import logoPillar from "../assets/PillarLogo-removebg.png";
 import { Link, NavLink } from "react-router-dom";
-import { FaHome, FaBook } from "react-icons/fa";
 import { IoChevronDown } from "react-icons/io5";
+import { AiOutlineHome } from "react-icons/ai";
+import { LuBookText } from "react-icons/lu";
+import { BiLogOut } from "react-icons/bi";
 
 const SideBar = () => {
   const [openMaterias, setOpenMaterias] = useState(false);
@@ -19,7 +21,7 @@ const SideBar = () => {
 
         <nav style={{ display: "grid" }}>
           <NavLink to="/home" className="sidebar-link">
-            <FaHome className="icon-sidebar" />
+            <AiOutlineHome  className="icon-sidebar" style={{color: '#42bd36'}}/>
             Página Inicial
           </NavLink>
 
@@ -31,7 +33,7 @@ const SideBar = () => {
             aria-controls="submenu-materias"
             onClick={() => setOpenMaterias((v) => !v)}
           >
-            <FaBook className="icon-sidebar" style={{color: '#0f9cff'}} />
+            <LuBookText className="icon-sidebar" style={{color: '#0f9cff'}} />
             Matérias
             <IoChevronDown
               className={`chevron ${openMaterias ? "rotate" : ""}`}
@@ -47,21 +49,21 @@ const SideBar = () => {
             aria-label="Lista de matérias"
           >
             <NavLink
-              to=""
+              to="/primeiroAno"
               className="submenu-link"
               onClick={() => setOpenMaterias(false)}
             >
               1º Ano
             </NavLink>
             <NavLink
-              to=""
+              to="/segundoAno"
               className="submenu-link"
               onClick={() => setOpenMaterias(false)}
             >
               2º Ano
             </NavLink>
             <NavLink
-              to=""
+              to="/terceiroAno"
               className="submenu-link"
               onClick={() => setOpenMaterias(false)}
             >
@@ -72,7 +74,7 @@ const SideBar = () => {
 
         <hr className="line" style={{ marginTop: "auto" }} />
         <Link to="/" className="logout-bottom">
-          Sair
+          <BiLogOut />Sair
         </Link>
       </div>
     </>

@@ -1,10 +1,17 @@
 import React from 'react'
+import SideBar from '../../../components/SideBar'
+
 
 const SegundoAno = () => {
   return (
-    <div>
-        <h1>Segundo Ano</h1>
+    <>
+    <div className='root-home'>
+        <SideBar />
+        <div>
+            <h2>SEGUNDO ANO</h2>
+        </div>
     </div>
+    </> 
   )
 }
 
