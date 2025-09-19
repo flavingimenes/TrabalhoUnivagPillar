@@ -7,3 +7,13 @@ Footer.jsx
 Button.jsx
 
 Diferença: Enquanto pages/ são telas completas, components/ são peças menores usadas em várias partes do app.
+
+
+
+----------------------------------------
+Diferença entre Link e NavLink:
+
+Resumo curto:
+Use <Link /> quando só precisa navegar.
+
+Use <NavLink /> em menus ou sidebars, quando precisa destacar a rota atual.

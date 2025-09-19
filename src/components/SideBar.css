@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "SfProDisplayHeavyItalic";
-  src: url("../assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("truetype");
+    font-family: "SfProDisplayHeavyItalic";
+    src: url("../assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("truetype");
 }
 
 .sidebar {
@@ -14,12 +14,12 @@
     background-color: #72a5ea1f;
 }
 
-.logo-sidebar{
+.logo-sidebar {
     width: 180px;
     margin-top: 20px;
 }
 
-.line{
+.line {
     border: 0.01em solid #00000038;
     margin-left: auto;
     margin-right: auto;
@@ -45,13 +45,62 @@
     text-decoration: underline;
 }
 
-.logout-bottom{
-    margin-top: auto;
-    margin-bottom: 20px;
+.logout-bottom {
+    margin-top: 20px;
+    margin-bottom: 30px;
     text-decoration: none;
 }
 
-.icon-sidebar{
+.icon-sidebar {
     margin-right: 10px;
     font-size: 22px;
+}
+
+
+.sidebar-button {
+    background: transparent;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 220ms ease;
+    padding-left: 2.2rem;
+    display: grid;
+}
+
+.submenu.open {
+    max-height: 300px;
+}
+
+
+.submenu-link {
+    color: #111;
+    text-decoration: none;
+    padding: .5rem 0;
+    font-size: 1rem;
+}
+
+.submenu-link:hover {
+    transform: scale(1.03);
+}
+
+.submenu-link.active {
+    font-weight: 700;
+}
+
+.chevron {
+    margin-left: auto;
+    transition: transform 200ms ease;
+}
+
+.chevron.rotate {
+    transform: rotate(180deg);
 }
