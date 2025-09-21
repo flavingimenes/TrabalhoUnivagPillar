@@ -6,9 +6,9 @@ const PrimeiroAno = () => {
     <>
     <div className='root-home'>
         <SideBar />
-        <div>
+        <header>
             <h2>PRIMEIRO ANO</h2>
-        </div>
+        </header>
     </div>
     </> 
   )

@@ -19,6 +19,12 @@
     margin-top: 20px;
 }
 
+.h2-header-sidebar{
+    font-size: 20px; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .line {
     border: 0.01em solid #00000038;
     margin-left: auto;
@@ -40,6 +46,12 @@
     transition: all 0.3s ease-in-out;
     display: flex;
     align-items: center;
+}
+
+.link-text{
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: "SfProDisplayHeavyItalic", sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .sidebar-link:hover {
@@ -109,4 +121,57 @@
 
 .chevron.rotate {
     transform: rotate(180deg);
+}
+
+
+
+/* RESPONSIVIDADE TABLET */
+@media (max-width: 1024px) {
+
+}
+
+
+
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 768px) {
+    .logo-sidebar{
+        display: none;
+    }
+
+    .h2-header-sidebar{
+        display: none;
+    }
+
+    #responsiveness{
+        display: none;
+    }
+
+    #padding-top-icon{
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+
+    .link-text{
+        display: none;
+    }
+
+    .icon-sidebar{
+        font-size: 35px;
+        margin-right: 0px;
+    }
+
+    .chevron{
+        color: #0f9cff;
+        margin-left: 0px;
+    }
+
+    .submenu{
+        padding-left: 0px;
+    }
+
+    .line{
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 }

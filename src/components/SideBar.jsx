@@ -12,17 +12,18 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="sidebar">
+      <aside className="sidebar">
         <img src={logoPillar} alt="logo pillar" className="logo-sidebar" />
-        <h2 style={{ fontSize: "20px", marginTop: 20, marginBottom: 20 }}>
+        <h2 className="h2-header-sidebar">
           Bom dia, aluno
         </h2>
-        <hr className="line" />
+        <hr className="line" id="responsiveness"/>
 
         <nav style={{ display: "grid" }}>
-          <NavLink to="/home" className="sidebar-link">
+          <NavLink to="/home" className="sidebar-link"
+          id="padding-top-icon">
             <AiOutlineHome  className="icon-sidebar" style={{color: '#42bd36'}}/>
-            Página Inicial
+            <span className="link-text">Página Inicial</span>
           </NavLink>
 
           {/* Botão que abre/fecha o submenu */}
@@ -34,7 +35,7 @@ const SideBar = () => {
             onClick={() => setOpenMaterias((v) => !v)}
           >
             <LuBookText className="icon-sidebar" style={{color: '#0f9cff'}} />
-            Matérias
+            <span className="link-text">Matérias</span>
             <IoChevronDown
               className={`chevron ${openMaterias ? "rotate" : ""}`}
               aria-hidden
@@ -71,12 +72,12 @@ const SideBar = () => {
             </NavLink>
           </div>
         </nav>
-
+        <hr className="line" />
         <hr className="line" style={{ marginTop: "auto" }} />
         <Link to="/" className="logout-bottom">
-          <BiLogOut />Sair
+          <BiLogOut /><span className="link-text">Sair</span>
         </Link>
-      </div>
+      </aside>
     </>
   );
 };
