@@ -1,0 +1,5 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; overflow-x: clip; }              /* evita barra horizontal no Safari 17+ */
+@supports not (overflow: clip) { body { overflow-x: hidden; } } /* fallback */
+img, video, canvas { max-width: 100%; height: auto; display: block; }

@@ -8,7 +8,8 @@
     padding: 0;
     display: flex;
     width: auto;
-    height: 100vh;
+    min-height: 100dvh;                  /* Safari 16.4+ e modernos */
+    min-height: 100svh;                  /* boa com barras visíveis */
     flex-direction: column;
     align-items: center;
     background-color: #72a5ea1f;
@@ -46,17 +47,20 @@
     transition: all 0.3s ease-in-out;
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 .link-text{
     text-decoration: none;
     font-size: 1.1rem;
     font-family: "SfProDisplayHeavyItalic", sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-width: 0;
 }
 
 .sidebar-link:hover {
     transform: scale(1.02);
     text-decoration: underline;
+    text-decoration-thickness: from-font;
 }
 
 .logout-bottom {
@@ -92,6 +96,7 @@
     transition: max-height 220ms ease;
     padding-left: 2.2rem;
     display: grid;
+    gap: 0;
 }
 
 .submenu.open {
@@ -104,6 +109,7 @@
     text-decoration: none;
     padding: .5rem 0;
     font-size: 1rem;
+    min-width: 0;
 }
 
 .submenu-link:hover {
@@ -117,6 +123,7 @@
 .chevron {
     margin-left: 5px;
     transition: transform 200ms ease;
+    flex-shrink: 0; 
 }
 
 .chevron.rotate {
@@ -171,7 +178,13 @@
     }
 
     .line{
-        padding-left: 40px;
-        padding-right: 40px;
+        padding-left: 30px;
+        padding-right: 30px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .logout-bottom{
+        font-size: 2rem;
     }
 }
