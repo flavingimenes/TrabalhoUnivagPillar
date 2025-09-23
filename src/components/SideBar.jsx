@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./SideBar.css";
 import logoPillar from "../assets/PillarLogo-removebg.png";
+import LivroPrimeiroAno from "../assets/ImgsLivros/LivroPrimeiroAno.png"
+import LivroSegundoAno from "../assets/ImgsLivros/LivroSegundoAno.png"
+import LivroTerceiroAno from "../assets/ImgsLivros/LivroTerceiroAno.png"
+
 import { Link, NavLink } from "react-router-dom";
 import { IoChevronDown } from "react-icons/io5";
 import { AiOutlineHome } from "react-icons/ai";
@@ -54,21 +58,24 @@ const SideBar = () => {
               className="submenu-link"
               onClick={() => setOpenMaterias(false)}
             >
-              1º Ano
+              <img src={LivroPrimeiroAno} alt="livroAno" className="book-sidebar-year" />
+              <span className="link-text-year">1° Ano</span>
             </NavLink>
             <NavLink
               to="/segundoAno"
               className="submenu-link"
               onClick={() => setOpenMaterias(false)}
             >
-              2º Ano
+              <img src={LivroSegundoAno} alt="livroAno" className="book-sidebar-year" />
+              <span className="link-text-year">2° Ano</span>
             </NavLink>
             <NavLink
               to="/terceiroAno"
               className="submenu-link"
               onClick={() => setOpenMaterias(false)}
             >
-              3º Ano
+              <img src={LivroTerceiroAno} alt="livroAno" className="book-sidebar-year" />
+              <span className="link-text-year">3° Ano</span>
             </NavLink>
           </div>
         </nav>

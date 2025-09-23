@@ -57,6 +57,14 @@
     min-width: 0;
 }
 
+.link-text-year{
+
+}
+
+.book-sidebar-year{
+    width: 50px;
+}
+
 .sidebar-link:hover {
     transform: scale(1.02);
     text-decoration: underline;
@@ -160,6 +168,10 @@
     }
 
     .link-text{
+        display: none;
+    }
+
+    .link-text-year{
         display: none;
     }
 
