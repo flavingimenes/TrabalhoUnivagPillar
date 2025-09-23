@@ -3,13 +3,18 @@
     src: url("../assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("truetype");
 }
 
+@font-face {
+    font-family: "SfProDisplayMedium";
+    src: url("../assets/sf-pro-display/SFPRODISPLAYMEDIUM.OTF") format("truetype");
+}
+
 .sidebar {
     margin: 0;
     padding: 0;
     display: flex;
     width: auto;
-    min-height: 100dvh;                  /* Safari 16.4+ e modernos */
-    min-height: 100svh;                  /* boa com barras visíveis */
+    min-height: 100dvh;
+    min-height: 100svh;
     flex-direction: column;
     align-items: center;
     background-color: #72a5ea1f;
@@ -24,6 +29,8 @@
     font-size: 20px; 
     margin-top: 20px;
     margin-bottom: 20px;
+    max-width: 200px;
+    text-align: center;
 }
 
 .line {
@@ -58,7 +65,7 @@
 }
 
 .link-text-year{
-
+    font-family: "SfProDisplayMedium", sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .book-sidebar-year{
@@ -128,6 +135,10 @@
     font-weight: 700;
 }
 
+.book-sidebar-year{
+    display: none;
+}
+
 .chevron {
     margin-left: 5px;
     transition: transform 200ms ease;
@@ -138,6 +149,9 @@
     transform: rotate(180deg);
 }
 
+#pencil-icon{
+    width: 19px;
+}
 
 
 /* RESPONSIVIDADE TABLET */
@@ -154,6 +168,10 @@
         display: none;
     }
 
+    .book-sidebar-year{
+        display: block;
+    }
+
     .h2-header-sidebar{
         display: none;
     }
@@ -163,8 +181,8 @@
     }
 
     #padding-top-icon{
-        padding-top: 50px;
-        padding-bottom: 20px;
+        padding-top: 40px;
+        padding-bottom: 0.8rem;
     }
 
     .link-text{
@@ -198,5 +216,9 @@
 
     .logout-bottom{
         font-size: 2rem;
+    }
+
+    #pencil-icon{
+        width: 1.8rem;
     }
 }

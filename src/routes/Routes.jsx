@@ -6,6 +6,7 @@ import Home from '../pages/Home/Home';
 import PrimeiroAno from '../pages/materias/PrimeiroAno/PrimeiroAno';
 import SegundoAno from '../pages/materias/SegundoAno/SegundoAno';
 import TerceiroAno from '../pages/materias/TerceiroAno/TerceiroAno';
+import Activities from "../pages/Atividades/Activities";
 
 
 function AppRoutes() {
@@ -18,6 +19,7 @@ function AppRoutes() {
         <Route path="/primeiroAno" element={<PrimeiroAno />} />
         <Route path="/segundoAno" element={<SegundoAno />} />
         <Route path="/terceiroAno" element={<TerceiroAno />} />
+        <Route path="/atividades" element={<Activities />} /> 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

@@ -10,16 +10,19 @@ import { IoChevronDown } from "react-icons/io5";
 import { AiOutlineHome } from "react-icons/ai";
 import { LuBookText } from "react-icons/lu";
 import { BiLogOut } from "react-icons/bi";
+import { FaPencil } from "react-icons/fa6";
+import { DayHour } from "../utils/DayHour";
 
 const SideBar = () => {
   const [openMaterias, setOpenMaterias] = useState(false);
+  const saudacao = DayHour();
 
   return (
     <>
       <aside className="sidebar">
         <img src={logoPillar} alt="logo pillar" className="logo-sidebar" />
         <h2 className="h2-header-sidebar">
-          Bom dia, aluno
+          {saudacao}, aluno!
         </h2>
         <hr className="line" id="responsiveness"/>
 
@@ -78,6 +81,12 @@ const SideBar = () => {
               <span className="link-text-year">3° Ano</span>
             </NavLink>
           </div>
+          <NavLink to="/atividades"
+          className="sidebar-link">
+            <FaPencil className="icon-sidebar" style={{color: '#ff2828'}}
+            id="pencil-icon"/> <span className="link-text"
+            >Atividades </span>
+          </NavLink>
         </nav>
         <hr className="line" />
         <hr className="line" style={{ marginTop: "auto" }} />
