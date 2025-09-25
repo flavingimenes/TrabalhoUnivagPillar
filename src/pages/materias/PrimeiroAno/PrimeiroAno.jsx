@@ -12,10 +12,8 @@ const PrimeiroAno = () => {
         <div className='mainContent'>
 
           <header className='header-container'>
-            <div className='header-img'>
-              
-            </div>
-              <FaBook className='book-header'/>
+            <img src={HeaderImg} alt="HeaderImg" className='header-img'/>
+              <FaBook className='book-header' />
           </header>
 
 
