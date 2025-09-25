@@ -1,16 +1,27 @@
 import React from 'react'
 import SideBar from '../../../components/SideBar'
+import { FaBook } from "react-icons/fa";
+import './PrimeiroAno.css'
+import HeaderImg from '../../../assets/Imgs/bookBackground.png'
 
 const PrimeiroAno = () => {
   return (
     <>
-    <div className='root-home'>
+      <div className='root-home'>
         <SideBar />
-        <header>
-            <h2>PRIMEIRO ANO</h2>
-        </header>
-    </div>
-    </> 
+        <div className='mainContent'>
+
+          <header className='header-container'>
+            <div className='header-img'>
+              
+            </div>
+              <FaBook className='book-header'/>
+          </header>
+
+
+        </div>
+      </div>
+    </>
   )
 }
 

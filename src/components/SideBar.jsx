@@ -26,7 +26,7 @@ const SideBar = () => {
         </h2>
         <hr className="line" id="responsiveness"/>
 
-        <nav style={{ display: "grid" }}>
+        <nav style={{ display: "grid", paddingLeft: "15px" }}>
           <NavLink to="/home" className="sidebar-link"
           id="padding-top-icon">
             <AiOutlineHome  className="icon-sidebar" style={{color: '#42bd36'}}/>
@@ -59,7 +59,6 @@ const SideBar = () => {
             <NavLink
               to="/primeiroAno"
               className="submenu-link"
-              onClick={() => setOpenMaterias(false)}
             >
               <img src={LivroPrimeiroAno} alt="livroAno" className="book-sidebar-year" />
               <span className="link-text-year">1° Ano</span>
@@ -67,7 +66,6 @@ const SideBar = () => {
             <NavLink
               to="/segundoAno"
               className="submenu-link"
-              onClick={() => setOpenMaterias(false)}
             >
               <img src={LivroSegundoAno} alt="livroAno" className="book-sidebar-year" />
               <span className="link-text-year">2° Ano</span>
@@ -75,7 +73,6 @@ const SideBar = () => {
             <NavLink
               to="/terceiroAno"
               className="submenu-link"
-              onClick={() => setOpenMaterias(false)}
             >
               <img src={LivroTerceiroAno} alt="livroAno" className="book-sidebar-year" />
               <span className="link-text-year">3° Ano</span>
