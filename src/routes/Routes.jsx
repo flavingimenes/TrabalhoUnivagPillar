@@ -7,6 +7,7 @@ import PrimeiroAno from '../pages/materias/PrimeiroAno/PrimeiroAno';
 import SegundoAno from '../pages/materias/SegundoAno/SegundoAno';
 import TerceiroAno from '../pages/materias/TerceiroAno/TerceiroAno';
 import Activities from "../pages/Atividades/Activities";
+import Portugues from "../pages/materias/PrimeiroAno/LinguaPortuguesa/Portugues";
 
 
 function AppRoutes() {
@@ -20,6 +21,8 @@ function AppRoutes() {
         <Route path="/segundoAno" element={<SegundoAno />} />
         <Route path="/terceiroAno" element={<TerceiroAno />} />
         <Route path="/atividades" element={<Activities />} /> 
+        <Route path="/portugues" element={<Portugues />} />
+
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

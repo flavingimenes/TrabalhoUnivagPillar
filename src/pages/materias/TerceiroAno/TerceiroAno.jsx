@@ -7,7 +7,7 @@ const TerceiroAno = () => {
     <>
     <div className='root-home'>
         <SideBar />
-        <div>
+        <div className='main-div'>
             <h2>TERCEIRO ANO</h2>
         </div>
     </div>

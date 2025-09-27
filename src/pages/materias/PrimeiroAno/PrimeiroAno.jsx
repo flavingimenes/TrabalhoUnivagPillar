@@ -3,6 +3,9 @@ import SideBar from '../../../components/SideBar'
 import { FaBook } from "react-icons/fa";
 import './PrimeiroAno.css'
 import HeaderImg from '../../../assets/Imgs/bookBackground.png'
+import { NavLink } from 'react-router-dom';
+import Portugues from '../PrimeiroAno/LinguaPortuguesa/Portugues';
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const PrimeiroAno = () => {
   return (
@@ -24,28 +27,34 @@ const PrimeiroAno = () => {
             <h3 className='material-name'>
               Linguagens e suas Tecnologias
             </h3>
-            <h4>
-              ● Língua Portuguesa:
-            </h4>
-            <p>
-              <br />○ Habilidades: Leitura e interpretação de textos literários e não literários. Análise da
-              estrutura de gêneros textuais (notícia, crônica, conto). Uso da norma-padrão e
-              compreensão de variações linguísticas. <br /><br />
-              ○ Competências: Compreender a linguagem como forma de interação social, de
-              expressão e de acesso à informação. Desenvolver a argumentação e o pensamento
-              crítico na leitura e na produção textual.
 
-            </p>
-            <br /><br />
-            <p>
-              <br />○ Habilidades: Leitura e interpretação de textos literários e não literários. Análise da
-              estrutura de gêneros textuais (notícia, crônica, conto). Uso da norma-padrão e
-              compreensão de variações linguísticas. <br /><br />
-              ○ Competências: Compreender a linguagem como forma de interação social, de
-              expressão e de acesso à informação. Desenvolver a argumentação e o pensamento
-              crítico na leitura e na produção textual.
+            <NavLink to="/portugues" >
+            <div className='material-box'>
+              <p>Lingua Portuguesa</p>
+              <FaLongArrowAltRight />
+            </div>
+            </NavLink >
 
-            </p>
+            <NavLink to="/portugues" >
+            <div className='material-box'>
+              <p>Arte</p>
+              <FaLongArrowAltRight />
+            </div>
+            </NavLink >
+
+            <NavLink to="/portugues" >
+            <div className='material-box'>
+              <p>Educação Física</p>
+              <FaLongArrowAltRight />
+            </div>
+            </NavLink >
+
+            <NavLink to="/portugues" >
+            <div className='material-box'>
+              <p>Língua Inglesa</p>
+              <FaLongArrowAltRight />
+            </div>
+            </NavLink >
           </div>
 
         </div>

@@ -7,7 +7,7 @@ const SegundoAno = () => {
     <>
     <div className='root-home'>
         <SideBar />
-        <div>
+        <div className='main-div'>
             <h2>SEGUNDO ANO</h2>
         </div>
     </div>
