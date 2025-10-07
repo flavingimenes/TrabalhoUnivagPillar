@@ -248,6 +248,7 @@
 @media (max-width: 768px) {
     .sidebar{
         width: auto;
+        padding: 0.2rem;
     }
 
     .sidebar-header{
