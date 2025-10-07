@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 const Portugues = () => {
   return (
     <div>
-        <h1>PORTUGUES</h1>
+        <h1>PORTUGUES 1</h1>
     </div>
   )
 }
