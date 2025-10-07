@@ -26,13 +26,13 @@ const SideBar = () => {
         </h2>
         <hr className="line" id="responsiveness"/>
 
-        <nav style={{ display: "grid", paddingLeft: "15px" }}>
+        <nav className="main-nav">
           <NavLink to="/home" className="sidebar-link"
           id="padding-top-icon">
             <AiOutlineHome  className="icon-sidebar" style={{color: '#42bd36'}}/>
             <span className="link-text">Página Inicial</span>
           </NavLink>
-
+          
           {/* Botão que abre/fecha o submenu */}
           <button
             type="button"

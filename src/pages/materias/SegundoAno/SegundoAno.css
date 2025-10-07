@@ -52,6 +52,9 @@
 
 .main-content {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    margin: 35px 12rem 65px;
+    padding: 35px;
+    border-radius: 7px;
 }
 
 .main-content>h4 {
@@ -71,6 +74,14 @@
     font-family: "SfProDisplayMedium";
     letter-spacing: 1px;
     font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-in-materialname {
+    margin-left: 15px;
+    font-size: 25px;
 }
 
 .material-box {
@@ -86,8 +97,13 @@
 }
 
 
+
 /* RESPONSIVIDADE TABLET */
-@media (max-width: 1024px) {}
+@media (max-width: 1024px) {
+   .main-content{
+    margin: 35px 7rem;
+   } 
+}
 
 
 
@@ -98,7 +114,11 @@
     }
 
     .main-div {
-        margin-left: 67.6px;
+        margin-left: 73px;
+    }
+
+    .header-img {
+        width: 100vw;
     }
 
     .header-text-main {
@@ -112,7 +132,7 @@
     }
 
     .main-content {
-        margin: 50px 20px 30px;
+        margin: 50px 20px 70px;
         padding: 25px;
         border-radius: 8px;
 
@@ -121,6 +141,11 @@
     .material-name {
         padding-bottom: 20px;
         font: 1.5em;
+        display: block;
+    }
+
+    .icon-in-materialname {
+        
     }
 
     .material-box {

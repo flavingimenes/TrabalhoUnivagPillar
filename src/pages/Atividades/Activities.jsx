@@ -6,9 +6,9 @@ const Activities = () => {
   return (
     <div className='root-home'>
         <SideBar />
-        <header>
-            <h2>ATIVIDADES</h2>
-        </header>
+        <div className='main-div'>
+          <h2>ATIVIDADES</h2>
+        </div>
     </div>
   )
 }

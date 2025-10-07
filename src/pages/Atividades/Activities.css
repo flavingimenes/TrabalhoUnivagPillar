@@ -1,0 +1,19 @@
+    
+
+
+
+
+/* RESPONSIVIDADE TABLET */
+@media (max-width: 1024px) {
+
+}
+
+
+
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 768px) {
+        .main-div {
+        margin-left: 73px;
+    }
+}

@@ -12,11 +12,15 @@
     margin: 0;
     padding: 0;
     display: flex;
-    width: auto;
+    width: 161.6px;
     min-height: 100svh;
     flex-direction: column;
     align-items: center;
     background-color: #72a5ea1f;
+}
+
+.main-nav{
+    display: grid;
 }
 
 .logo-sidebar {
@@ -31,13 +35,11 @@
     max-width: 200px;
     text-align: center;
 }
-
 .line {
     border: 0.01em solid #00000038;
     margin-left: auto;
     margin-right: auto;
-    padding-right: 80px;
-    padding-left: 80px;
+    padding: 0px 80px;
     margin-top: 8px;
     margin-bottom: 8px;
 }
@@ -168,6 +170,15 @@
 
 /* RESPONSIVIDADE MOBILE */
 @media (max-width: 768px) {
+    .sidebar{
+        width: auto;
+    }
+
+    .main-nav{
+        padding-left: 15px;
+        padding-right: 5px;
+    }
+    
     .logo-sidebar{
         display: none;
     }
