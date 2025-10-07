@@ -10,43 +10,43 @@ import Activities from "../pages/Atividades/Activities";
 
 
 // Imports das Matérias do Primeiro Ano
-import Portugues from "../pages/materias/PrimeiroAno/LinguaPortuguesa/Portugues";
-import Artes from "../pages/materias/PrimeiroAno/Arte/Artes";
-import Biologia from "../pages/materias/PrimeiroAno/Biologia/Biologia";
-import Educfisica from "../pages/materias/PrimeiroAno/Educfisica/Educfisica";
-import Filosofia from "../pages/materias/PrimeiroAno/Filosofia/Filosofia";
-import Fisica from "../pages/materias/PrimeiroAno/Fisica/Fisica";
-import Historia from "../pages/materias/PrimeiroAno/Historia/Historia";
-import Ingles from "../pages/materias/PrimeiroAno/Ingles/Ingles";
-import Matematica from "../pages/materias/PrimeiroAno/Matematica/Matematica";
-import Quimica from "../pages/materias/PrimeiroAno/Quimica/Quimica";
-import Sociologia from "../pages/materias/PrimeiroAno/Sociologia/Sociologia";
+import Portugues from "../pages/materias/PrimeiroAno/LinguaPortuguesa/Portugues.jsx";
+import Artes from "../pages/materias/PrimeiroAno/Arte/Artes.jsx";
+import Biologia from "../pages/materias/PrimeiroAno/Biologia/Biologia.jsx";
+import Educfisica from "../pages/materias/PrimeiroAno/Educfisica/Educfisica.jsx";
+import Filosofia from "../pages/materias/PrimeiroAno/Filosofia/Filosofia.jsx";
+import Fisica from "../pages/materias/PrimeiroAno/Fisica/Fisica.jsx";
+import Historia from "../pages/materias/PrimeiroAno/Historia/Historia.jsx";
+import Ingles from "../pages/materias/PrimeiroAno/Ingles/Ingles.jsx";
+import Matematica from "../pages/materias/PrimeiroAno/Matematica/Matematica.jsx";
+import Quimica from "../pages/materias/PrimeiroAno/Quimica/Quimica.jsx";
+import Sociologia from "../pages/materias/PrimeiroAno/Sociologia/Sociologia.jsx";
 
 // Imports das Matérias do Segundo Ano
-import Portugues2 from "../pages/materias/SegundoAno/LinguaPortuguesa/Portugues";
-import Artes2 from "../pages/materias/SegundoAno/Arte/Artes";
-import Biologia2 from "../pages/materias/SegundoAno/Biologia/Biologia";
-import Educfisica2 from "../pages/materias/SegundoAno/Educfisica/Educfisica";
-import Filosofia2 from "../pages/materias/SegundoAno/Filosofia/Filosofia";
-import Fisica2 from "../pages/materias/SegundoAno/Fisica/Fisica";
-import Historia2 from "../pages/materias/SegundoAno/Historia/Historia";
-import Ingles2 from "../pages/materias/SegundoAno/Ingles/Ingles";
-import Matematica2 from "../pages/materias/SegundoAno/Matematica/Matematica";
-import Quimica2 from "../pages/materias/SegundoAno/Quimica/Quimica"; 
-import Sociologia2 from "../pages/materias/SegundoAno/Sociologia/Sociologia";
+import Portugues2 from "../pages/materias/SegundoAno/LinguaPortuguesa/Portugues.jsx";
+import Artes2 from "../pages/materias/SegundoAno/Arte/Artes.jsx";
+import Biologia2 from "../pages/materias/SegundoAno/Biologia/Biologia.jsx";
+import Educfisica2 from "../pages/materias/SegundoAno/Educfisica/Educfisica.jsx";
+import Filosofia2 from "../pages/materias/SegundoAno/Filosofia/Filosofia.jsx";
+import Fisica2 from "../pages/materias/SegundoAno/Fisica/Fisica.jsx";
+import Historia2 from "../pages/materias/SegundoAno/Historia/Historia.jsx";
+import Ingles2 from "../pages/materias/SegundoAno/Ingles/Ingles.jsx";
+import Matematica2 from "../pages/materias/SegundoAno/Matematica/Matematica.jsx";
+import Quimica2 from "../pages/materias/SegundoAno/Quimica/Quimica.jsx"; 
+import Sociologia2 from "../pages/materias/SegundoAno/Sociologia/Sociologia.jsx";
 
 // Imports das Matérias do Terceiro Ano
-import Portugues3 from "../pages/materias/TerceiroAno/LinguaPortuguesa/Portugues"; 
-import Artes3 from "../pages/materias/TerceiroAno/Arte/Artes";
-import Biologia3 from "../pages/materias/TerceiroAno/Biologia/Biologia";
-import Educfisica3 from "../pages/materias/TerceiroAno/Educfisica/Educfisica";
-import Filosofia3 from "../pages/materias/TerceiroAno/Filosofia/Filosofia";
-import Fisica3 from "../pages/materias/TerceiroAno/Fisica/Fisica";
-import Historia3 from "../pages/materias/TerceiroAno/Historia/Historia";
-import Ingles3 from "../pages/materias/TerceiroAno/Ingles/Ingles";
-import Matematica3 from "../pages/materias/TerceiroAno/Matematica/Matematica";
-import Quimica3 from "../pages/materias/TerceiroAno/Quimica/Quimica"; 
-import Sociologia3 from "../pages/materias/TerceiroAno/Sociologia/Sociologia";
+import Portugues3 from "../pages/materias/TerceiroAno/LinguaPortuguesa/Portugues.jsx"; 
+import Artes3 from "../pages/materias/TerceiroAno/Arte/Artes.jsx";
+import Biologia3 from "../pages/materias/TerceiroAno/Biologia/Biologia.jsx";
+import Educfisica3 from "../pages/materias/TerceiroAno/Educfisica/Educfisica.jsx";
+import Filosofia3 from "../pages/materias/TerceiroAno/Filosofia/Filosofia.jsx";
+import Fisica3 from "../pages/materias/TerceiroAno/Fisica/Fisica.jsx";
+import Historia3 from "../pages/materias/TerceiroAno/Historia/Historia.jsx";
+import Ingles3 from "../pages/materias/TerceiroAno/Ingles/Ingles.jsx";
+import Matematica3 from "../pages/materias/TerceiroAno/Matematica/Matematica.jsx";
+import Quimica3 from "../pages/materias/TerceiroAno/Quimica/Quimica.jsx"; 
+import Sociologia3 from "../pages/materias/TerceiroAno/Sociologia/Sociologia.jsx";
 
 
 function AppRoutes() {
