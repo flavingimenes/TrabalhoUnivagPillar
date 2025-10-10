@@ -26,6 +26,9 @@ const SegundoAno = () => {
             <h1>
               2º Ano do Ensino Médio
             </h1>
+            <h3>
+              Estas seções de matérias das grades curriculares do Ensino Médio, contem resumos das principais habilidades e competências a serem desenvolvidas em cada matéria, seguindo a Base Nacional Curricular <a href="https://basenacionalcomum.mec.gov.br/abase" target='blank'>(BNCC)</a>
+            </h3>
           </div>
 
 

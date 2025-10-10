@@ -18,8 +18,6 @@
     align-items: center;
     background-color: #72a5ea1f;
     box-sizing: border-box;
-    overflow-x: hidden; /* Impede que o conteúdo vaze na animação */
-    /* Animação para ABRIR a sidebar */
     transition: width 0.3s ease-out;
 }
 
