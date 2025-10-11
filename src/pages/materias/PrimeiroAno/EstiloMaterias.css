@@ -107,6 +107,12 @@
     position: relative;
 }
 
+.habilidades-list li > p > strong {
+    font-size: 1.1em;
+    font-family: "SfProDisplayHeavyItalic", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: normal;
+}
+
 /* Adiciona um ícone customizado para os itens da lista */
 .habilidades-list li::before {
     content: '✓';
@@ -131,6 +137,11 @@
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     border-radius: 8px;
     margin-bottom: 70px;
+}
+
+.youtubeDiv > aside{
+    display: flex;
+    justify-content: center;
 }
 
 .youtubeDiv > p{

@@ -84,10 +84,12 @@ const Portugues = () => {
         <div className='youtubeDiv'>
           <h2 className="section-title" style={{color:'red'}}>Vídeo Youtube</h2>
           <p>
-            Vídeo selecionado e recomendado pela nossa equipe, relacionado ao conteúdo de Português do 1° Ano.
+            Vídeo recomendado pela nossa equipe, relacionado ao conteúdo de Português do 1° Ano.
           </p>
-          <iframe src="https://www.youtube.com/embed/videoseries?si=UReAaWbGafZ5g0UW&amp;list=PL5WAoGdttpPIcOg4BX_53bqh7paM2KJyc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
-          className='youtubeFrame'></iframe>
+          <aside>
+            <iframe src="https://www.youtube.com/embed/videoseries?si=UReAaWbGafZ5g0UW&amp;list=PL5WAoGdttpPIcOg4BX_53bqh7paM2KJyc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+            className='youtubeFrame'></iframe>
+          </aside>
         </div>
       </main>
     </div>
