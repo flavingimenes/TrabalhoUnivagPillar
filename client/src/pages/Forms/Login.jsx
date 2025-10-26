@@ -1,9 +1,11 @@
 // Importamos o 'useEffect'
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+// Seus imports de CSS (o form.css atualizado é essencial)
 import './form.css';
 import './logo.css';
-import logoPillar from '../../assets/PillarLogo-removebg.png';
+import logoPillar from '../../assets/PillarLogo.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,28 +14,20 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // --- NOVO BLOCO ---
-  // Este 'useEffect' "assiste" à variável 'error'.
+  // Seu 'useEffect' para limpar o erro (sem alterações)
   useEffect(() => {
-    // Se 'error' não for nulo (ou seja, um erro foi definido)
     if (error) {
-      // Inicia um timer
       const timerId = setTimeout(() => {
-        setError(null); // Limpa o erro após 5000ms (5 segundos)
+        setError(null);
       }, 5000);
-
-      // Função de limpeza:
-      // Se o usuário tentar enviar de novo antes dos 5s,
-      // o timer antigo é cancelado.
       return () => clearTimeout(timerId);
     }
-  }, [error]); // <-- Array de dependências: só roda quando 'error' mudar.
-  // --- FIM DO NOVO BLOCO ---
+  }, [error]);
 
-
+  // Sua função 'handleLogin' (sem alterações na lógica)
   const handleLogin = async (e) => {
-    e.preventDefault(); 
-    setError(null); 
+    e.preventDefault();
+    setError(null);
 
     try {
       const response = await fetch('http://localhost:3001/login', {
@@ -41,7 +35,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email, password: password }), 
+        body: JSON.stringify({ email: email, password: password }),
       });
 
       const data = await response.json();
@@ -54,49 +48,93 @@ const Login = () => {
       navigate('/home');
 
     } catch (err) {
-      setError(err.message); // <-- Quando isso acontece, o useEffect acima é ativado
+      setError(err.message);
       console.error('Erro no login:', err);
     }
   };
 
   return (
-    <>
-      <div className='main-forms'>
-        <div className='login-div'>
-          <img src={logoPillar} alt="logo pillar" className='logo'/>
-          
-          <form className='login-form' onSubmit={handleLogin}> 
-            <input 
-              type="email"
-              id="email" 
-              name="email"
-              placeholder='Email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required 
-            />
-            <br />
-            <input 
-              type="password" 
-              id="senha" 
-              name="password"
-              placeholder='Senha' 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required 
-            />
+    // O container principal split-screen
+    <div className='register-container'>
 
-            {error && <p className="form-error">{error}</p>}
-
-            <button type="submit" className='button'>Entrar!</button>
-          </form>
+      {/* PAINEL ESQUERDO (BRANDING) */}
+      <div className='register-branding-panel'>
+        <div className='branding-content'>
           
-          <br />
-          <Link to="/register">Criar nova conta</Link>
+          {/* Texto atualizado para login */}
+          <h2>Bem-vindo de volta ao Pillar</h2>
+          <p>
+            Acesse sua conta e continue construindo
+            seu futuro.
+          </p>
+          
+          {/* O mesmo card de depoimento para consistência */}
+          <div className='testimonial-card'>
+            <p className='testimonial-text'>
+              "Quase não precisei fazer nada. Adorei a experiência. Configurei meus estudos, e cuidaram de todos os detalhes necessários em segundos. Recomendo com certeza!"
+            </p>
+            <div className='testimonial-author'>
+              <img src="https://cdn.motor1.com/images/mgl/VPzrl/s1/1x1/davidson-sportster-s---midnight-crimson-main.webp" alt="Catherine Johns" />
+              <span>Dhiogo Nascimento</span>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  )
+
+      {/* PAINEL DIREITO (FORMULÁRIO) */}
+      <div className='register-form-panel'>
+        <div className='form-wrapper'>
+
+          <div className='branding-logo'>
+            <img 
+              src={logoPillar} 
+              alt="Pillar Logo" 
+              style={{ height: '130px', width: 'auto' }} 
+            />
+          </div>
+          <h1>Login</h1>
+          
+          <form className='register-form' onSubmit={handleLogin}>
+            
+            <div className='form-group'>
+              <label htmlFor='email'>Email:</label>
+              <input 
+                type="email"
+                id="email" 
+                name="email"
+                placeholder=''
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required 
+              />
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='senha'>Senha:</label>
+              <input 
+                type="password" 
+                id="senha" 
+                name="password"
+                placeholder='' 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required 
+              />
+            </div>
+
+            {/* Mensagem de erro */}
+            {error && <p className="form-error">{error}</p>}
+
+            <button type="submit" className='button'>
+              Entrar
+            </button>
+          </form>
+          
+          <Link to="/register" className='form-link'>Criar nova conta</Link>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

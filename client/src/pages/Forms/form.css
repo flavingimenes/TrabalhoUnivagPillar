@@ -1,124 +1,326 @@
-.main-forms {
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  min-height: 100dvh;
-  min-height: 100svh;
-  padding: 16px;  
-}
+@font-face {
+    font-family: "SfProDisplayHeavyItalic";
+    src: url("../../assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("truetype");
 
-/* Regra combinada para .login-div e .register-div, 
-  pois seus estilos eram idênticos.
-*/
-.login-div, .register-div {
-    display: flex;
-    flex-direction: column;
-    width: clamp(280px, 80vw, 370px);
-    margin: 0;
-    padding: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+    font-family: "SfProDisplayMedium";
+    src: url("../../assets/sf-pro-display/SFPRODISPLAYMEDIUM.OTF") format("truetype");
 
-/* Regra combinada para os formulários.
-*/
-.login-form, .register-form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-}
+    font-family: "SfProDisplayRegular";
+    src: url("../../assets/sf-pro-display/SFPRODISPLAYREGULAR.OTF") format("truetype");
 
-/* Regra combinada para os inputs.
-  Adicionei um 'margin-bottom' para espaçamento.
-*/
-.login-form input, .register-form input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    font-family: "SfProDisplayBold";
+    src: url("../../assets/sf-pro-display/SFPRODISPLAYBOLD.OTF") format("truetype");
 }
-
-/* Remove a margem do último input */
-.login-form input:last-of-type,
-.register-form input:last-of-type {
-    margin-bottom: 0;
-}
-
 
 /* =============================================
-  ATUALIZAÇÃO IMPORTANTE DO BOTÃO
-  =============================================
-  Esta é agora a classe 'padrão' para botões.
-  O seletor '.register-div > button' foi removido.
-  Adicione 'className="button"' ao seu botão no Register.jsx
-*/
+   VARIÁVEIS GLOBAIS E RESET
+   ============================================= */
+
+:root {
+  --primary-blue: #0A69FF; /* Tom de azul vibrante da imagem */
+  --darker-blue: #0055D4;  /* Para o hover do botão */
+  --light-gray-border: #DDE2E7;
+  --text-color-primary: #1D2939;
+  --text-color-secondary: #667085;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: #F9FAFB; /* Um cinza muito claro para o fundo, caso o container não preencha */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================
+   LAYOUT SPLIT-SCREEN
+   ============================================= */
+
+.register-container {
+  display: grid;
+  grid-template-columns: 2fr 3fr; /* Proporção 40% / 60% */
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: #fff;
+}
+
+/* Em telas menores, remove o split e mostra só o formulário */
+@media (max-width: 900px) {
+  .register-container {
+    grid-template-columns: 1fr; /* Coluna única */
+  }
+}
+
+/* =============================================
+   PAINEL ESQUERDO (BRANDING)
+   ============================================= */
+
+.register-branding-panel {
+  background-color: var(--primary-blue);
+  color: #fff;
+  padding: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* Esconde o painel esquerdo em telas pequenas */
+@media (max-width: 900px) {
+  .register-branding-panel {
+    display: none;
+  }
+}
+
+.branding-content {
+  max-width: 400px;
+}
+
+.branding-logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+  justify-self: center;
+}
+
+.register-branding-panel h2 {
+  font-size: 2.5rem; /* 40px */
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  font-family: "SfProDisplayHeavyItalic", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: normal;
+}
+
+.register-branding-panel p {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  margin-bottom: 10em;
+}
+
+/* Card de Depoimento */
+.testimonial-card {
+  background-color: rgba(0, 0, 0, 0.1); /* Um overlay sutil */
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.testimonial-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem !important; /* Sobrescreve o 'p' geral */
+  opacity: 1;
+  font-family: "SfProDisplayRegular", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.testimonial-author span {
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: "SfProDisplayHeavy", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+}
+
+/* =============================================
+   PAINEL DIREITO (FORMULÁRIO)
+   ============================================= */
+
+.register-form-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  overflow-y: auto; /* Permite scroll se o formulário for grande */
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 450px; /* Largura máxima do formulário */
+}
+
+/* Indicador de Progresso (Stepper) */
+.stepper {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 2.5rem;
+}
+
+.stepper .step {
+  height: 4px;
+  flex-grow: 1;
+  background-color: var(--light-gray-border);
+  border-radius: 2px;
+}
+
+.stepper .step.active {
+  background-color: var(--primary-blue);
+}
+
+.register-form-panel h1 {
+  font-size: 2rem; /* 32px */
+  font-weight: 600;
+  color: var(--text-color-primary);
+  margin-bottom: 2rem;
+  font-family: "SfProDisplayHeavy", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+}
+
+/* =============================================
+   ESTILOS DO FORMULÁRIO (INPUTS, LABELS, ETC)
+   ============================================= */
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espaçamento entre os grupos de formulário */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group label {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  color: var(--text-color-primary);
+  margin-bottom: 0.5rem; /* 8px */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px; /* Mais padding interno */
+  font-size: 1rem;
+  color: var(--text-color-primary);
+  border: 1px solid var(--light-gray-border);
+  border-radius: 8px; /* Cantos arredondados */
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input::placeholder {
+  color: var(--text-color-secondary);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(10, 105, 255, 0.2); /* Sombra de foco */
+}
+
+/* Layout em Grid (para senhas) */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Em telas pequenas, os campos voltam a ser empilhados */
+@media (max-width: 500px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================
+   BOTÃO E LINK
+   ============================================= */
+
 .button {
-    width: 100%; /* Faz o botão preencher a largura */
-    margin-top: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #205ad7;
-    color: #fff !important;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color .2s ease;
-    text-decoration: none; /* Garante que links pareçam botões */
+  width: 100%;
+  padding: 12px;
+  margin-top: 1rem; /* Espaço acima do botão */
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-blue);
+  color: #fff !important; /* Garante que o texto seja branco */
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s ease;
+  text-decoration: none;
+  text-align: center;
+  font-family: "SfProDisplayBold", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: normal;
+  
+  /* Para a seta */
+  position: relative;
+}
+
+.button span {
+  position: absolute;
+  right: 1.5rem; /* 24px */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
 }
 
 .button:hover {
-    background-color: #3352ae;
+  background-color: var(--darker-blue);
 }
 
-/* Links "Criar nova conta" e "Já possui conta?"
-*/
-.login-div > a, .register-div > a {
-    font-size: 14px;
-    color: #007BFF;
-    text-decoration: none;
-    margin-top: 15px; /* Adicionado para espaçamento */
+.form-link {
+  display: block; /* Faz o link ocupar a linha toda */
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
 }
 
+.form-link:hover {
+  text-decoration: underline;
+}
 
 /* =============================================
-  NOVAS CLASSES PARA FEEDBACK
-  =============================================
-*/
-.form-error {
-  color: #D8000C; /* Vermelho */
-  background-color: #FFD2D2;
-  border: 1px solid #D8000C;
+   MENSAGENS DE FEEDBACK (ERRO/SUCESSO)
+   ============================================= */
+
+.form-error, .form-success {
   padding: 10px;
-  border-radius: 5px;
-  margin-top: 15px;
-  font-size: 14px;
+  border-radius: 8px;
+  margin-top: 5px;
+  font-size: 0.875rem;
   text-align: left;
+  font-weight: 500;
+}
+
+.form-error {
+  color: #D92D20;
+  background-color: #FEE4E2;
+  border: 1px solid #FECDCA;
 }
 
 .form-success {
-  color: #4F8A10; /* Verde */
-  background-color: #DFF2BF;
-  border: 1px solid #4F8A10;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 15px;
-  font-size: 14px;
-  text-align: left;
-}
-/* ============================= */
-
-
-/* As regras antigas '.register-div > button' e 
-  '.register-div > button:hover' foram REMOVIDAS 
-  pois o botão agora está dentro do form e 
-  deve usar a classe .button.
-*/
-
-
-@media (orientation: landscape) {
-  .main-forms { min-height: 100svh; }
+  color: #027A48;
+  background-color: #D1FADF;
+  border: 1px solid #A6F4C5;
 }
