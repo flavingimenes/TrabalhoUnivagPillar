@@ -1,8 +1,9 @@
-// Importamos o 'useEffect'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react'; 
 import { Link, useNavigate } from 'react-router-dom';
 
-// Seus imports de CSS (o form.css atualizado é essencial)
+import { useTimedError } from '../../hooks/useTimedError';
+
+// Seus imports de CSS e logo
 import './form.css';
 import './logo.css';
 import logoPillar from '../../assets/PillarLogo.png';
@@ -10,24 +11,17 @@ import logoPillar from '../../assets/PillarLogo.png';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  
+  // 2. SUBSTITUI O useState E O useEffect DO ERRO POR ESTA LINHA
+  // A lógica do timer de 5 segundos (5000ms) agora está dentro do 'useTimedError'
+  const [error, setError] = useTimedError(5000);
 
   const navigate = useNavigate();
 
-  // Seu 'useEffect' para limpar o erro (sem alterações)
-  useEffect(() => {
-    if (error) {
-      const timerId = setTimeout(() => {
-        setError(null);
-      }, 5000);
-      return () => clearTimeout(timerId);
-    }
-  }, [error]);
 
-  // Sua função 'handleLogin' (sem alterações na lógica)
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(null);
+    setError(null); // Limpa erros anteriores ao tentar novamente
 
     try {
       const response = await fetch('http://localhost:3001/login', {
@@ -48,7 +42,8 @@ const Login = () => {
       navigate('/home');
 
     } catch (err) {
-      setError(err.message);
+      // Ao chamar setError, o Hook 'useTimedError' iniciará o timer
+      setError(err.message); 
       console.error('Erro no login:', err);
     }
   };
@@ -61,14 +56,12 @@ const Login = () => {
       <div className='register-branding-panel'>
         <div className='branding-content'>
           
-          {/* Texto atualizado para login */}
           <h2>Bem-vindo de volta ao Pillar</h2>
           <p>
             Acesse sua conta e continue construindo
             seu futuro.
           </p>
           
-          {/* O mesmo card de depoimento para consistência */}
           <div className='testimonial-card'>
             <p className='testimonial-text'>
               "Quase não precisei fazer nada. Adorei a experiência. Configurei meus estudos, e cuidaram de todos os detalhes necessários em segundos. Recomendo com certeza!"
@@ -78,6 +71,7 @@ const Login = () => {
               <span>Dhiogo Nascimento</span>
             </div>
           </div>
+          <h3>&copy; 2025 Pillar.</h3>
         </div>
       </div>
 
@@ -122,7 +116,7 @@ const Login = () => {
               />
             </div>
 
-            {/* Mensagem de erro */}
+            {/* A exibição do erro continua funcionando igual */}
             {error && <p className="form-error">{error}</p>}
 
             <button type="submit" className='button'>

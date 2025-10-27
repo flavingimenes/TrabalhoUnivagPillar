@@ -93,6 +93,7 @@ const Register = () => {
               <span>Dhiogo Nascimento</span>
             </div>
           </div>
+          <h3>&copy; 2025 Pillar.</h3>
         </div>
       </div>
 
