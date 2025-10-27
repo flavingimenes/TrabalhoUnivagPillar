@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Activities.css"
 import SideBar from '../../components/SideBar'
-import HeaderImg from '../../assets/Imgs/bookBackground.png'
+import HeaderImg from '../../assets/Imgs/bookBackground.jpg'
 
 const Activities = () => {
   return (

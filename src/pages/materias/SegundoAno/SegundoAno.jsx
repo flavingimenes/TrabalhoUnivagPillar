@@ -2,7 +2,7 @@ import React from 'react'
 import SideBar from '../../../components/SideBar'
 import { FaBook } from "react-icons/fa";
 import './SegundoAno.css'
-import HeaderImg from '../../../assets/Imgs/bookBackground.png'
+import HeaderImg from '../../../assets/Imgs/bookBackground.jpg'
 import { NavLink } from 'react-router-dom';
 import ScrollToTop from '../../../utils/ScrollToTop';
 import Portugues from '../PrimeiroAno/LinguaPortuguesa/Portugues';

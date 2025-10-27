@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 // Importe seu CSS atualizado
 import './form.css';
 import logoPillar from '../../assets/PillarLogo.png';
+import BookIos from '../../assets/Imgs/books_ios.png'
 
 
 const Register = () => {
@@ -78,7 +79,7 @@ const Register = () => {
         <div className='branding-content'>
 
           {/* Texto atualizado para login */}
-          <h2>Bem-vindo ao Pillar</h2>
+          <h2>Bem-vindo ao Pillar <img src={BookIos} alt="wave-emoji" style={{ height: '35px', display: 'inline', marginLeft: '5px' }} /></h2>
           <p>
             Crie uma conta e descubra um mundo sem complicações para o seu estudo.
           </p>
@@ -93,6 +94,7 @@ const Register = () => {
               <span>Dhiogo Nascimento</span>
             </div>
           </div>
+          <h3>&copy; 2025 Pillar.</h3>
         </div>
       </div>
 
@@ -108,6 +110,7 @@ const Register = () => {
             />
           </div>
           <h1>Registrar Conta</h1>
+          <h2>Bem vindo ao Pillar! <img src={BookIos} alt="wave-emoji" style={{ height: '20px', display: 'inline', marginLeft: '5px' }} /></h2>
 
           <form className='register-form' onSubmit={handleSubmit}>
 
