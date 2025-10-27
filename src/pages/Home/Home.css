@@ -279,7 +279,7 @@
     
     /* CUIDADO: Esta regra provavelmente causa overflow horizontal. */
     .main-div {
-        margin-left: 74px;
+        margin-left: 73px;
     }
 
 }
