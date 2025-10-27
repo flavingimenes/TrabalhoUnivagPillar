@@ -1,16 +1,22 @@
+/* --- CORREÇÃO 1: @font-face --- */
 @font-face {
     font-family: "SfProDisplayHeavyItalic";
     src: url("../../assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("truetype");
-
+}
+@font-face {
     font-family: "SfProDisplayMedium";
     src: url("../../assets/sf-pro-display/SFPRODISPLAYMEDIUM.OTF") format("truetype");
-
+}
+@font-face {
     font-family: "SfProDisplayRegular";
     src: url("../../assets/sf-pro-display/SFPRODISPLAYREGULAR.OTF") format("truetype");
-
+}
+@font-face {
     font-family: "SfProDisplayBold";
     src: url("../../assets/sf-pro-display/SFPRODISPLAYBOLD.OTF") format("truetype");
 }
+/* --- FIM DA CORREÇÃO 1 --- */
+
 
 :root {
   --primary-color: #007bff; /* Azul primário */
@@ -30,6 +36,16 @@
     display: flex;
 }
 
+/* --- CORREÇÃO 3: BUG DO OVERFLOW DA IMAGEM --- */
+/* Esta regra estava faltando e causava o scroll horizontal */
+.header-img-home {
+    width: 100vw;
+    height: 200px;
+    object-position: center;
+}
+
+
+
 .home-header{
     padding-top: 4em;
     text-align: center;
@@ -37,7 +53,6 @@
 
 .home-header > h1{
     padding-top: 5px;
-    width: 250px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -48,12 +63,11 @@
 }
 
 .home-header-p {
-    padding-top: 10px;
-    width: 340px;
+    padding: 10px 40px 80px;
     margin: auto;
     font-family: sans-serif;
     color: grey;
-    padding-bottom: 80px;
+
 }
 
 .home-main-content {
@@ -175,14 +189,15 @@
   text-align: left;
 }
 
-.testimonia-card {
+/* --- CORREÇÃO 2: Classe renomeada para evitar conflito --- */
+.home-testimonial-card {
   background: var(--bg-color-soft);
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
 }
 
-.testimonia-card p {
+.home-testimonial-card p {
   font-style: italic;
   color: var(--text-color);
   line-height: 1.6;
@@ -191,7 +206,7 @@
   position: relative;
 }
 
-.testimonia-card p::before {
+.home-testimonial-card p::before {
   content: '“';
   position: absolute;
   left: -15px;
@@ -202,11 +217,13 @@
   font-family: Georgia, serif;
 }
 
-.testimonia-card span {
+.home-testimonial-card span {
   font-weight: 600;
   color: var(--text-color-light);
   font-size: 0.9rem;
 }
+/* --- FIM DA CORREÇÃO 2 --- */
+
 
 /* --- 4. Seção Call to Action (CTA) --- */
 .cta-section {
@@ -253,26 +270,17 @@
 
 
 /* RESPONSIVIDADE TABLET */
-@media (max-width: 1024px) {}
+@media (max-width: 1024px) {
+    
+}
 
 
 
 /* RESPONSIVIDADE MOBILE */
 @media (max-width: 768px) {
-    .sidebar {
-        position: fixed;
-    }
 
     .main-div {
         margin-left: 74px;
-    }
-
-    .home-header > h1 {
-        font-size: 1.9rem;
-    }
-
-    .home-header-p {
-        width: 250px;
     }
 
 }
