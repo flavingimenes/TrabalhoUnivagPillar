@@ -121,9 +121,9 @@ const Login = () => {
             {/* A exibição do erro continua funcionando igual */}
             {error && <p className="form-error">{error}</p>}
 
-            <Link to="/home" className='button'>
+            <button type="submit" className='button'>
               Entrar
-            </Link>
+            </button>
           </form>
           
           <Link to="/register" className='form-link'>Criar nova conta</Link>

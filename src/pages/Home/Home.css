@@ -1,283 +1,355 @@
-/* --- CORREÇÃO 1: @font-face --- */
-@font-face {
-    font-family: "SfProDisplayHeavyItalic";
-    src: url("../../assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("truetype");
-}
-@font-face {
-    font-family: "SfProDisplayMedium";
-    src: url("../../assets/sf-pro-display/SFPRODISPLAYMEDIUM.OTF") format("truetype");
-}
-@font-face {
-    font-family: "SfProDisplayRegular";
-    src: url("../../assets/sf-pro-display/SFPRODISPLAYREGULAR.OTF") format("truetype");
-}
-@font-face {
-    font-family: "SfProDisplayBold";
-    src: url("../../assets/sf-pro-display/SFPRODISPLAYBOLD.OTF") format("truetype");
-}
-/* --- FIM DA CORREÇÃO 1 --- */
-
-
+/* --- :root - Variáveis Globais --- */
 :root {
-  --primary-color: #007bff; /* Azul primário */
-  --primary-hover: #0056b3; /* Azul mais escuro para hover */
-  --bg-color-light: #ffffff; /* Fundo dos cards */
-  --bg-color-soft: #f8f9fa;  /* Fundo das seções */
-  --text-color: #333;       /* Texto principal */
-  --text-color-light: #555; /* Texto secundário */
-  --border-color: #e9ecef;  /* Bordas suaves */
+  --mobile-topbar-height: 60px;
+  --color-primary: #6366F1;
+  /* Indigo 500 */
+  --color-primary-dark: #4F46E5;
+  /* Indigo 600 */
+  --color-primary-light: #EEF2FF;
+  /* Indigo 50 */
+  --color-bg: #F9FAFB;
+  /* Gray 50 */
+  --color-bg-card: #FFFFFF;
+  --color-text-primary: #1F2937;
+  /* Gray 800 */
+  --color-text-secondary: #6B7280;
+  /* Gray 500 */
+  --color-border: #E5E7EB;
+  /* Gray 200 */
+  --border-radius-md: 0.5rem;
+  /* 8px */
+  --border-radius-lg: 0.75rem;
+  /* 12px */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* Variavel da altura da barra mobile (para o main-div saber) */
+  --sidebar-height-mobile: 60px;
 }
 
+/* --- Reset Básico e Padrões --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+/* --- Layout Principal --- */
 .root-home {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
+  display: flex;
+  height: 100vh;
 }
 
-/* --- CORREÇÃO 3: BUG DO OVERFLOW DA IMAGEM --- */
-/* Esta regra estava faltando e causava o scroll horizontal */
-.header-img-home {
-    /* CORREÇÃO: 100vw causa overflow. 100% usa a largura do elemento pai. */
-    width: 100%; 
-    height: 200px;
-    object-position: center;
+.main-div {
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto;
+  /* Permite scroll apenas no conteúdo principal */
+  background-color: var(--color-bg);
 }
 
-.home-header{
-    padding-top: 4em;
-    text-align: center;
+/* --- 1. Headers --- */
+/* (O resto do seu CSS permanece idêntico...) */
+header:first-of-type {
+  overflow: hidden;
 }
 
-.home-header > h1{
-    padding-top: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    justify-self: center;
-    font-family: 'SfProDisplayBold', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 2.2rem;
+.header-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.home-header-p {
-    padding: 10px 40px 80px;
-    margin: auto;
-    font-family: sans-serif;
-    color: grey;
-}
-
-.home-main-content {
-  padding: 2rem 4%; /* Adiciona espaçamento lateral */
-  /* CORREÇÃO: 'width: 100%;' removido. Desnecessário com max-width e margin auto. */
-  max-width: 1200px; /* Limita a largura do conteúdo */
-  margin: 0 auto; /* Centraliza o conteúdo principal */
-  box-sizing: border-box; /* Garante que o padding não estoure a largura */
-}
-
-/* --- Estilo Padrão das Seções --- */
-.home-main-content section {
-  padding: 10px;
-  margin-bottom: 2.5rem;
-  border-radius: 12px;
-  background-color: var(--bg-color-soft);
+.home-header {
+  margin-top: 20px;
+  padding: 2rem;
+  background-color: var(--color-bg-card);
+  border-bottom: 1px solid var(--color-border);
   text-align: center;
+  max-width: 900px;
+  position: relative;
+  z-index: 2;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  justify-self: center;
 }
 
-.home-main-content section:last-of-type {
-  margin-bottom: 0;
+.home-header p {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.home-header h1 {
+  font-size: 2.5rem;
+  /* Um pouco menor que o hero anterior */
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+}
+
+.home-header h1 span {
+  color: var(--color-primary);
+}
+
+.home-header .home-header-p {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  text-transform: none;
+  /* Reseta o uppercase */
+  font-weight: 400;
+  /* Reseta o font-weight */
+  letter-spacing: normal;
+  /* Reseta o letter-spacing */
+}
+
+/* --- Conteúdo Principal e Seções --- */
+.home-main-content {
+  padding: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.home-main-content>section {
+  margin-bottom: 4rem;
+  /* Espaçamento entre seções */
+  padding: 2.5rem;
+  background-color: var(--color-bg-card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
 }
 
 .home-main-content h2 {
-  font-size: 2.0rem;
-  color: var(--text-color);
-  margin-bottom: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-primary-light);
+  padding-bottom: 0.5rem;
 }
 
-/* --- 1. Seção de Funcionalidades (Features) --- */
-.features-section {
-  background-color: var(--bg-color-light); /* Fundo branco para destacar */
-  border: 1px solid var(--border-color);
-}
-
+/* --- 2. Seção de Funcionalidades --- */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  text-align: left;
 }
 
 .feature-card {
   padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color-light);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  background: linear-gradient(145deg, var(--color-bg), #ffffff);
 }
 
 .feature-card h3 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: var(--text-color);
+  color: var(--color-primary);
 }
 
 .feature-card p {
-  font-size: 1rem;
-  color: var(--text-color-light);
-  line-height: 1.6;
+  color: var(--color-text-secondary);
 }
 
-/* --- 2. Seção "Como Funciona?" (How it Works) --- */
+/* --- 3. Seção "Como Funciona?" --- */
 .steps-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  flex-wrap: wrap; /* Permite quebrar a linha em telas menores */
+  text-align: center;
 }
 
 .step-card {
-  flex: 1;
-  min-width: 250px;
-  padding: 1.5rem;
+  position: relative;
+  padding: 2rem 1.5rem;
 }
 
 .step-card span {
   display: inline-block;
-  /* Este 'width' está correto, é para um elemento de UI, não para o layout */
-  width: 40px; 
-  height: 40px;
-  line-height: 40px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  color: #fff;
-  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.5rem;
   font-weight: 700;
+  border-radius: 50%;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
   margin-bottom: 1rem;
 }
 
 .step-card h3 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  color: var(--text-color);
 }
 
 .step-card p {
-  font-size: 1rem;
-  color: var(--text-color-light);
-  line-height: 1.6;
-}
-
-/* --- 3. Seção de Depoimentos (Testimonials) --- */
-.testimonials-section {
-  background-color: var(--bg-color-light);
-  border: 1px solid var(--border-color);
-}
-
-.testimonials-grid {
-  display: grid;
-  gap: 1.5rem;
-  text-align: left;
-}
-
-/* --- CORREÇÃO 2: Classe renomeada para evitar conflito --- */
-.home-testimonial-card {
-  background: var(--bg-color-soft);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
-.home-testimonial-card p {
-  font-style: italic;
-  color: var(--text-color);
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  /* Adiciona aspas estilizadas */
-  position: relative;
-}
-
-.home-testimonial-card p::before {
-  content: '“';
-  position: absolute;
-  left: -15px;
-  top: -10px;
-  font-size: 3rem;
-  color: var(--primary-color);
-  opacity: 0.2;
-  font-family: Georgia, serif;
-}
-
-.home-testimonial-card span {
-  font-weight: 600;
-  color: var(--text-color-light);
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
-/* --- FIM DA CORREÇÃO 2 --- */
 
+/* --- 4. Seção de Depoimentos --- */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
 
-/* --- 4. Seção Call to Action (CTA) --- */
+.testimonia-card {
+  padding: 2rem;
+  background-color: var(--color-primary-light);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonia-card p {
+  font-style: italic;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  flex-grow: 1;
+}
+
+.testimonia-card span {
+  font-weight: 600;
+  color: var(--color-primary);
+  font-style: normal;
+}
+
+/* --- 5. Seção de Call to Action (CTA) --- */
 .cta-section {
-  background-color: var(--primary-color);
-  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #FFFFFF;
+  text-align: center;
+  border-radius: var(--border-radius-lg);
+  padding: 3rem;
+  box-shadow: var(--shadow-lg);
 }
 
 .cta-section h2 {
-  font-size: 2rem;
+  color: #FFFFFF;
+  border-bottom: none;
+  font-size: 1.8rem;
 }
 
 .cta-section p {
   font-size: 1.1rem;
+  color: var(--color-primary-light);
   margin-bottom: 1.5rem;
-  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cta-button {
-  padding: 0.8rem 2rem;
+  font-family: var(--font-sans);
   font-size: 1rem;
-  font-weight: 700;
-  color: var(--primary-color);
+  font-weight: 600;
+  padding: 0.75rem 2rem;
   border: none;
-  border-radius: 50px; /* Botão "pilula" */
+  border-radius: var(--border-radius-md);
+  background-color: #FFFFFF;
+  color: var(--color-primary);
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
 }
 
 .cta-button:hover {
+  background-color: var(--color-primary-light);
   transform: scale(1.05);
 }
 
-/* --- Rodapé --- */
+/* --- 6. Rodapé --- */
 .home-footer {
-  text-align: center;
+  background-color: var(--color-bg-card);
+  border-top: 1px solid var(--color-border);
   padding: 2rem;
-  border-top: 1px solid var(--border-color);
-  margin-top: 2rem;
-  color: var(--text-color-light);
+  text-align: center;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
+  margin-top: 4rem;
 }
 
 
+/* * ============================================
+ * === MEDIA QUERIES (Responsividade) ===
+ * ============================================
+ */
 
-/* RESPONSIVIDADE TABLET */
+/* Telas de tablet e menores */
 @media (max-width: 1024px) {
-    
+
+  .features-grid,
+  .steps-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .home-header {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
 }
 
-
-
-/* RESPONSIVIDADE MOBILE */
+/* Telas de celular */
 @media (max-width: 768px) {
-    .main-div {
-        margin-left: 74px;
-        width: calc(100% - 74px);
-    }
+
+  /* --- MUDANÇA 1: Layout da Raiz --- */
+  /* Muda o layout de linha (PC) para coluna (Mobile) */
+  .root-home {
+    flex-direction: column;
+  }
+
+  /* --- MUDANÇA 2: Div Principal --- */
+  .main-div {
+    margin-left: 0;
+    padding-top: var(--mobile-topbar-height);
+    width: 100%;
+    height: calc(100vh - var(--mobile-topbar-height));
+  }
+
+  .home-header {
+    padding: 1.5rem;
+  }
+
+  .home-header h1 {
+    font-size: 2rem;
+  }
+
+  .home-header .home-header-p {
+    font-size: 1rem;
+  }
+
+  .home-main-content {
+    padding: 1rem;
+  }
+
+  .home-main-content>section {
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .features-grid,
+  .steps-container,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
 }

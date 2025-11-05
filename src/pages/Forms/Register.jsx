@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 // Importe seu CSS atualizado
 import './form.css';
+import Secret from '../../components/secret/Team.jsx';
 import logoPillar from '../../assets/PillarLogo.png';
 import BookIos from '../../assets/Imgs/books_ios.png'
 
@@ -94,7 +95,7 @@ const Register = () => {
               <span>Dhiogo Nascimento</span>
             </div>
           </div>
-          <h3>&copy; 2025 Pillar.</h3>
+          <Secret />
         </div>
       </div>
 

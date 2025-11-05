@@ -1,3 +1,4 @@
+/* ... (todo o seu CSS existente de @font-face até #pencil-icon) ... */
 @font-face {
     font-family: "SfProDisplayHeavyItalic";
     src: url("../assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("truetype");
@@ -12,13 +13,15 @@
     margin: 0;
     padding: 0 1rem;
     display: flex;
-    width: 250px; 
-    min-height: 100svh;
+    width: 250px;
     flex-direction: column;
     align-items: center;
-    background-color: #72a5ea1f;
+    background-color: #0A69FF;
     box-sizing: border-box;
     transition: width 0.3s ease-out;
+    z-index: 1000;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-right: 4px rgb(255 255 255 / 30%) solid;
 }
 
 /* --- ESTILOS PARA O HEADER DA SIDEBAR E BOTÃO TOGGLE --- */
@@ -35,7 +38,7 @@
     border: none;
     cursor: pointer;
     font-size: 24px;
-    color: #333;
+    color: white;
 }
 
 /* ----------------------------------------------------------------- */
@@ -44,6 +47,7 @@
     display: grid;
 }
 
+/* ... (todo o resto do seu CSS até .sidebar.collapsed ...) ... */
 .logo-sidebar {
     width: 150px;
     height: auto;
@@ -58,6 +62,7 @@
     white-space: nowrap;
     font-family: 'SfProDisplayMedium', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: normal;
+    color: white;
 }
 
 .line {
@@ -69,7 +74,7 @@
 }
 
 .sidebar-link {
-    color: black;
+    color: white;
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
     text-decoration: none;
@@ -97,6 +102,7 @@
     box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
     padding: 10px 40px;
     border-radius: 7px;
+    background-color: #0957d6;
 }
 
 .book-sidebar-year {
@@ -116,7 +122,7 @@
     display: flex;
     align-items: center;
     gap: 7px;
-    color: rgb(242, 10, 10);
+    color: white;
     font-size: 17px;
 }
 
@@ -149,11 +155,11 @@
 }
 
 .submenu.open>a.active {
-    color: #0f9cff;
+    color: rgb(0, 0, 0);
 }
 
 .submenu-link {
-    color: #111;
+    color: white;
     text-decoration: none;
     padding: 0.5rem 0;
     text-align: center;
@@ -191,7 +197,7 @@
 
 /* --- ESTILOS PARA A SIDEBAR RECOLHIDA --- */
 .sidebar.collapsed {
-    width: 80px;
+    width: 6rem;
     padding: 0 0.5rem;
     transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -235,97 +241,145 @@
     display: block;
     width: 40px;
     margin: 0;
+    filter: grayscale(100%) brightness(1000%);
 }
+
 /* --- --- --- --- --- --- --- --- --- */
 
+/* --- NOVOS ESTILOS (MOBILE) --- */
+:root {
+    /* Variável para a altura da barra do topo */
+    --mobile-topbar-height: 60px;
+}
 
-/* RESPONSIVIDADE TABLET */
-@media (max-width: 1024px) {}
+.mobile-topbar {
+    /* Escondido no Desktop por padrão */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--mobile-topbar-height);
+    background-color: #0A69FF;
+    border-bottom: 4px rgb(255 255 255 / 30%) solid;
+    padding: 0 1rem;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 999;
+}
+
+.logo-mobile-topbar {
+    width: 120px;
+    height: auto;
+}
+
+.mobile-hamburger-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.mobile-overlay {
+    /* Escondido no Desktop por padrão */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    /* Abaixo da topbar e do painel */
+}
+
+/* Botão de toggle do Desktop (agora com classe específica) */
+.desktop-toggle-btn {
+    display: block;
+    /* Visível no desktop */
+}
+
+
+/* --- RESPONSIVIDADE TABLET --- */
+@media (max-width: 1024px) {
+    /* (seus estilos de tablet aqui) */
+}
 
 
 
 
-/* RESPONSIVIDADE MOBILE */
+/* --- RESPONSIVIDADE MOBILE --- */
+/* Esta seção SUBSTITUI o seu @media (max-width: 768px) */
 @media (max-width: 768px) {
-    .sidebar {
-        width: auto;
-        padding: 0.2rem;
+
+    .mobile-topbar {
+        display: flex;
     }
 
-    .sidebar-header {
+    .desktop-toggle-btn {
         display: none;
     }
 
-    .sidebar.collapsed {
-        width: auto;
-    }
-
-    .main-nav {
-        padding-left: 10px;
-        padding-right: 5px;
-    }
-
-    .logo-sidebar {
-        display: none;
-    }
-
-    .book-sidebar-year {
+    .mobile-overlay {
         display: block;
     }
 
-    .h2-header-sidebar {
-        display: none;
-    }
-
-    #responsiveness {
-        display: none;
-    }
-
-    #padding-top-icon {
-        padding-top: 40px;
-        padding-bottom: 0.8rem;
-    }
-
-    .link-text {
-        display: none;
-    }
-
-    .link-text-year {
-        display: none;
-    }
-
-    .icon-sidebar {
-        font-size: 35px;
-        margin-right: 0px;
-    }
-
-    .chevron {
-        color: #0f9cff;
-        margin-left: 0px;
-    }
-
-    .submenu {
-        padding-left: 0px;
-    }
-
-    .submenu.open {
-        padding: 0px;
-    }
-
-    .submenu-link{
+    .submenu-link {
         margin-bottom: 0px;
     }
 
-    .line {
-        padding-left: 35px;
-        padding-right: 10px;
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -50%;
+        width: 50%;
+        height: 100vh;
+        min-height: 100vh;
+        z-index: 1001;
+        transition: left 0.3s ease;
+        width: 50% !important;
+        padding: 0 1rem !important;
     }
 
-    .logout-bottom {
-        font-size: 2rem;
+    .sidebar.mobile-open {
+        left: 0;
     }
 
-    #pencil-icon {
-        width: 1.8rem;
+    .sidebar .link-text,
+    .sidebar .link-text-year,
+    .sidebar .chevron,
+    .sidebar .h2-header-sidebar,
+    .sidebar .logo-sidebar {
+        display: block !important;
+        opacity: 1 !important;
+        width: auto !important;
+        overflow: visible !important;
+        white-space: nowrap !important;
+    }
+
+    .sidebar .sidebar-header {
+        justify-content: space-between !important;
+    }
+
+    .sidebar .sidebar-link {
+        justify-content: flex-start !important;
+    }
+
+    .sidebar .icon-sidebar {
+        margin-right: 10px !important;
+    }
+
+    .sidebar .logout-bottom {
+        justify-content: flex-start !important;
+        margin-bottom: 50px;
+    }
+
+    .sidebar .submenu-link .book-sidebar-year {
+        display: none !important;
+    }
+
+    .sidebar .sidebar-header .desktop-toggle-btn {
+        display: none !important;
     }
 }

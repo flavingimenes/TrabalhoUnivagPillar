@@ -30,9 +30,9 @@
 }
 
 .book-header {
-    position: absolute;
+    position: relative;
     left: 25%;
-    top: 225px;
+    top: -20px;
     transform: translateX(-50%);
     font-size: 2.7rem;
     color: black;
@@ -147,10 +147,6 @@
         object-position: center;
     }
 
-    .book-header{
-        top: 175px;
-    }
-
     .header-text-main {
         margin-top: 35px;
     }
@@ -177,10 +173,6 @@
         padding-bottom: 20px;
         font: 1.5em;
         display: block;
-    }
-
-    .icon-in-materialname {
-        
     }
 
     .material-box {
