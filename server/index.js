@@ -1,4 +1,3 @@
-// server/index.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -7,25 +6,56 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = process.env.PORT || 3001; // O back-end rodará aqui
+const PORT = process.env.PORT || 3001;
 
 // --- Middlewares ---
-// Permite que o front-end (rodando em outra porta) acesse esta API
-app.use(cors({ origin: 'http://localhost:5173' })); // ATENÇÃO: Mude a porta se o seu Vite rodar em outra.
-// Permite que o Express leia JSON enviado no corpo (body) das requisições
+app.use(cors({ 
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true 
+}));
+
 app.use(express.json());
 
 // --- Rotas ---
 
-// Rota de Teste
 app.get('/', (req, res) => {
   res.send('API do sistema de login está funcionando!');
 });
 
+// =======================================================
+// NOVA ROTA: BUSCAR CONTEÚDO DA HOME
+// =======================================================
+app.get('/content/home', async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        
+        // Tenta buscar os dados. Se a tabela não existir, vai dar erro aqui.
+        const query = "SELECT section_key, content_text FROM site_content";
+        const rows = await conn.query(query);
+
+        // Transforma o Array do banco em um Objeto JSON simples
+        // De: [{ section_key: 'titulo', content_text: 'Olá' }]
+        // Para: { titulo: 'Olá' }
+        const contentMap = {};
+        rows.forEach(row => {
+            contentMap[row.section_key] = row.content_text;
+        });
+
+        res.json(contentMap);
+
+    } catch (error) {
+        console.error("Erro ao buscar /content/home:", error);
+        // Retorna erro 500 para o front saber que falhou
+        res.status(500).json({ error: 'Erro ao buscar conteúdo. Verifique se a tabela site_content foi criada no banco.' });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
 /**
  * ROTA DE REGISTRO
- * POST /register
- * Recebe: { email, password }
  */
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
@@ -36,11 +66,9 @@ app.post('/register', async (req, res) => {
 
   let conn;
   try {
-    // 1. Criptografar a senha
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // 2. Salvar no banco
     conn = await pool.getConnection();
     const query = "INSERT INTO users (email, password_hash) VALUES (?, ?)";
     await conn.query(query, [email, passwordHash]);
@@ -54,14 +82,12 @@ app.post('/register', async (req, res) => {
     }
     res.status(500).json({ error: 'Erro ao registrar usuário.' });
   } finally {
-    if (conn) conn.release(); // Libera a conexão de volta para o pool
+    if (conn) conn.release();
   }
 });
 
 /**
  * ROTA DE LOGIN
- * POST /login
- * Recebe: { email, password }
  */
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -72,27 +98,24 @@ app.post('/login', async (req, res) => {
 
     let conn;
     try {
-        // 1. Buscar usuário pelo email
         conn = await pool.getConnection();
         const query = "SELECT * FROM users WHERE email = ?";
         const rows = await conn.query(query, [email]);
 
         if (rows.length === 0) {
-            return res.status(401).json({ error: 'Credenciais inválidas.' }); // Usuário não encontrado
+            return res.status(401).json({ error: 'Credenciais inválidas.' });
         }
 
         const user = rows[0];
-
-        // 2. Comparar a senha enviada com o hash salvo
         const isMatch = await bcrypt.compare(password, user.password_hash);
 
         if (!isMatch) {
-            return res.status(401).json({ error: 'Senha incorreta.' }); // Senha errada
+            return res.status(401).json({ error: 'Senha incorreta.' });
         }
 
-        // 3. Gerar o Token JWT
+        const secret = process.env.JWT_SECRET || 'fallback_secret';
         const tokenPayload = { userId: user.id, email: user.email };
-        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' }); // Token expira em 1 hora
+        const token = jwt.sign(tokenPayload, secret, { expiresIn: '1h' }); 
 
         res.json({ message: 'Login bem-sucedido!', token: token });
 
@@ -104,8 +127,6 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
-// Inicia o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT} 🗣️ 🔥`);
 });
