@@ -7,6 +7,7 @@ import { useTimedError } from '../../hooks/useTimedError';
 import './form.css';
 import './logo.css';
 import logoPillar from '../../assets/PillarLogo.png';
+import WaveEmoji from '../../assets/Imgs/waving-hand_ios.png'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -56,7 +57,7 @@ const Login = () => {
       <div className='register-branding-panel'>
         <div className='branding-content'>
           
-          <h2>Bem-vindo de volta ao Pillar</h2>
+          <h2>Bem-vindo de volta ao Pillar <img src={WaveEmoji} alt="wave-emoji" style={{ height: '35px', display: 'inline', marginLeft: '5px' }} /></h2>
           <p>
             Acesse sua conta e continue construindo
             seu futuro.
@@ -87,6 +88,7 @@ const Login = () => {
             />
           </div>
           <h1>Login</h1>
+          <h2>Bem vindo de volta! <img src={WaveEmoji} alt="wave-emoji" style={{ height: '20px', display: 'inline', marginLeft: '5px' }} /></h2>
           
           <form className='register-form' onSubmit={handleLogin}>
             
@@ -119,9 +121,13 @@ const Login = () => {
             {/* A exibição do erro continua funcionando igual */}
             {error && <p className="form-error">{error}</p>}
 
-            <button type="submit" className='button'>
+            {/* <button type="submit" className='button'>
               Entrar
-            </button>
+            </button> */} 
+
+            <Link to="/home" className='button'>
+              Entrar
+            </Link>
           </form>
           
           <Link to="/register" className='form-link'>Criar nova conta</Link>

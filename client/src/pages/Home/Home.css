@@ -1,26 +1,356 @@
-.root-home {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
+/* --- :root - Variáveis Globais (Ajustadas para Modernidade) --- */
+:root {
+  --mobile-topbar-height: 60px;
+  --sidebar-height-mobile: 60px;
+
+  /* Cores - Mantidas, mas aplicadas com mais leveza */
+  --color-primary: #6366F1;
+  --color-primary-dark: #4F46E5;
+  --color-primary-light: #EEF2FF;
+  
+  /* Backgrounds refinados */
+  --color-bg: #F3F4F6; /* Um pouco mais escuro que branco puro para contraste */
+  --color-bg-card: #FFFFFF;
+  
+  /* Texto */
+  --color-text-primary: #111827; /* Quase preto, mais nítido */
+  --color-text-secondary: #6B7280;
+  
+  /* Bordas e Sombras Modernas */
+  --color-border: #E5E7EB;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem; /* Arredondamento maior é tendência */
+  
+  /* Sombras mais difusas (estilo "Glass/Float") */
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+/* --- Reset e Base --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+html, body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* Texto mais nítido */
+}
 
-/* RESPONSIVIDADE TABLET */
-@media (max-width: 1024px) {}
+/* --- Layout Principal --- */
+.root-home {
+  display: flex;
+  height: 100vh;
+  overflow: hidden; /* Previne scroll duplo */
+}
 
+.main-div {
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  scroll-behavior: smooth;
+}
 
+/* --- 1. Headers --- */
+header:first-of-type {
+  overflow: hidden;
+  /* Se houver imagem de fundo, certifique-se que o container pai tenha altura ou position relative */
+}
 
-/* RESPONSIVIDADE MOBILE */
+.header-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block; /* Remove espaço branco extra embaixo de imagens inline */
+}
+
+.home-header {
+  margin: 2rem;
+  padding: 2rem; /* Mais espaço vertical */
+  background-color: var(--color-bg-card);
+  /* Removido border-bottom duro */
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm); /* Sombra mais leve */
+  border: 1px solid rgba(0,0,0,0.03); /* Borda quase invisível */
+}
+
+.home-header p {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px; /* Espaçamento maior fica mais elegante */
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  background: var(--color-primary-light);
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.home-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em; /* Títulos grandes ficam melhores "apertados" */
+}
+
+.home-header h1 span {
+  color: var(--color-primary);
+}
+
+.home-header .home-header-p {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: normal;
+  background: none; /* Remove o estilo de tag do <p> anterior */
+  display: block;
+  padding: 0;
+}
+
+/* --- Conteúdo Principal --- */
+.home-main-content {
+  padding: 0 2rem 4rem 2rem;
+  max-width: 1200px; /* Largura contida para leitura confortável */
+  margin: 0 auto;
+}
+
+.home-main-content > section {
+  margin-bottom: 3rem;
+  padding: 3rem;
+  background-color: var(--color-bg-card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito hover sutil na seção inteira (opcional, mas moderno) */
+.home-main-content > section:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.home-main-content h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--color-text-primary);
+  text-align: center; /* Centralizado fica mais moderno para seções */
+  border: none; /* Removemos a linha embaixo */
+}
+
+/* --- 2. Seção de Funcionalidades --- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsivo automático */
+  gap: 2rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  border: 1px solid transparent; /* Prepara para hover */
+  border-radius: var(--border-radius-lg);
+  background: var(--color-bg); /* Fundo levemente cinza para contraste com o card branco pai */
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  background: #fff;
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px); /* Levanta o card */
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary); /* Título escuro */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feature-card p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+/* --- 3. Seção "Como Funciona?" --- */
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.step-card {
+  padding: 1rem;
+  position: relative;
+}
+
+.step-card span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 12px; /* Quadrado arredondado (Squircle) é mais moderno que círculo */
+  background-color: var(--color-primary);
+  color: #fff;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); /* Brilho na cor primária */
+}
+
+.step-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* --- 4. Seção de Depoimentos --- */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Corrigi o typo "testimonia" para "testimonial" */
+.testimonial-card {
+  padding: 2rem;
+  background-color: #fff; /* Fundo branco limpo */
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  box-shadow: none; /* Remove sombra interna se houver */
+}
+
+.testimonial-card p {
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  flex-grow: 1;
+}
+
+.testimonial-card span {
+  font-weight: 600;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+.testimonial-card span::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-primary);
+  margin-right: 10px;
+}
+
+/* --- 5. CTA --- */
+.cta-section {
+  background: linear-gradient(135deg, var(--color-text-primary) 0%, #000 100%); /* Preto moderno em vez de roxo */
+  color: #FFFFFF;
+  text-align: center;
+  border-radius: var(--border-radius-lg);
+  padding: 4rem 2rem;
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
+
+.cta-section h2 {
+  color: #FFFFFF;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+.cta-section p {
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px; /* Botão pílula */
+  background-color: #FFFFFF;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* --- 6. Rodapé --- */
+.home-footer {
+  background-color: transparent; /* Remove fundo card */
+  border-top: 1px solid var(--color-border);
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-top: 2rem;
+}
+
+/* --- MEDIA QUERIES --- */
+@media (max-width: 1024px) {
+  .features-grid, .steps-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-header {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
-    .sidebar {
-        position: fixed;
-    }
-
-    .main-div {
-        margin-left: 74px;
-    }
-
+  .root-home {
+    flex-direction: column;
+  }
+  .main-div {
+    padding-top: var(--mobile-topbar-height);
+    width: 100%;
+    height: calc(100vh - var(--mobile-topbar-height));
+  }
+  .home-header h1 {
+    font-size: 2rem;
+  }
+  .home-main-content {
+    padding: 1rem;
+  }
+  .home-main-content > section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .features-grid, .steps-container, .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
 }

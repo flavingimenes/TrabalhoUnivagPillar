@@ -49,6 +49,8 @@ import Quimica3 from "../pages/materias/TerceiroAno/Quimica/Quimica.jsx";
 import Sociologia3 from "../pages/materias/TerceiroAno/Sociologia/Sociologia.jsx";
 
 
+// CONFIGURAR SEGURANÇA DAS ROTAAAASSSS//
+
 function AppRoutes() {
   return (
     <BrowserRouter>
