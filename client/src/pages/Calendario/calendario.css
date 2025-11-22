@@ -1,0 +1,473 @@
+/* --- ESTRUTURA GERAL --- */
+/* Prefixo utilizado: .study-planner- */
+
+.study-planner-root {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.study-planner-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.study-planner-header-container {
+    width: 100%;
+    height: 30vh;
+    flex-shrink: 0;
+   
+}
+
+.study-planner-header-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center bottom;
+}
+
+.study-planner-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.study-planner-title {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* --- LAYOUT AVANÇADO (Grid/Flex) --- */
+.study-planner-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* --- CALENDÁRIO (Esquerda) --- */
+.study-planner-left-panel {
+    flex: 2;
+    min-width: 350px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 25px;
+}
+
+.study-planner-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.study-planner-month-label {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2c3e50;
+    text-transform: capitalize;
+}
+
+.study-planner-nav-btn {
+    background: #f8f9fa;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.study-planner-nav-btn:hover {
+    background-color: #e2e6ea;
+    transform: scale(1.05);
+}
+
+.study-planner-week-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 15px;
+}
+
+.study-planner-week-day {
+    text-align: center;
+    font-weight: 600;
+    color: #95a5a6;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.study-planner-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.study-planner-day-cell {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    color: #4a5568;
+    position: relative;
+    background-color: transparent;
+}
+
+.study-planner-day-cell:not(.study-planner-day-empty):hover {
+    background-color: #f1f5f9;
+}
+
+.study-planner-day-selected {
+    background-color: #3498db !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.study-planner-day-today {
+    border: 2px solid #3498db;
+    font-weight: 700;
+}
+
+/* Indicadores (bolinhas) no dia */
+.study-planner-indicators {
+    display: flex;
+    gap: 3px;
+    margin-top: 4px;
+    height: 6px;
+}
+
+.study-planner-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: block;
+}
+
+/* --- PAINEL DE ESTUDOS (Direita) --- */
+.study-planner-right-panel {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 25px;
+    height: fit-content;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.study-planner-annotations-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.study-planner-annotations-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    text-transform: capitalize;
+}
+
+.study-planner-add-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.study-planner-add-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Filtros */
+.study-planner-filter-box {
+    margin-bottom: 15px;
+}
+
+.study-planner-filter-box select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    color: #4a5568;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Lista de Anotações */
+.study-planner-list {
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 5px;
+    scrollbar-width: thin;
+}
+
+.study-planner-no-items {
+    color: #a0aec0;
+    text-align: center;
+    margin-top: 30px;
+    font-style: italic;
+}
+
+.study-planner-card {
+    background-color: #fff;
+    border: 1px solid #f1f5f9;
+    border-left-width: 5px;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.study-planner-card:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+}
+
+.study-planner-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.study-planner-time-range {
+    font-size: 0.8rem;
+    color: #718096;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.study-planner-icon {
+    font-size: 0.9rem;
+}
+
+.study-planner-card-title {
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 1rem;
+}
+
+.study-planner-card-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.study-planner-delete-btn {
+    background: none;
+    border: none;
+    color: #cbd5e0;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+
+.study-planner-delete-btn:hover {
+    color: #e53e3e;
+}
+
+/* --- MODAL --- */
+.study-planner-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.study-planner-modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.study-planner-modal-box h3 {
+    margin-top: 0;
+    color: #2d3748;
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+}
+
+.study-planner-label {
+    display: block;
+    font-size: 0.85rem;
+    color: #718096;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.study-planner-input-text {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.study-planner-form-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.study-planner-input-time {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.study-planner-select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.study-planner-separator {
+    color: #718096;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.study-planner-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.study-planner-btn-save, .study-planner-btn-cancel {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+}
+
+.study-planner-btn-save {
+    background-color: #3498db;
+    color: white;
+}
+
+.study-planner-btn-cancel {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.study-planner-btn-save:hover, .study-planner-btn-cancel:hover {
+    opacity: 0.9;
+}
+
+/* --- Adições para CRUD (Editar/Excluir) --- */
+
+.study-planner-card-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.study-planner-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.study-planner-action-btn.delete {
+    color: #cbd5e0;
+}
+.study-planner-action-btn.delete:hover {
+    color: #e53e3e;
+    background-color: #ffebeb;
+}
+
+.study-planner-action-btn.edit {
+    color: #cbd5e0;
+    font-size: 1rem; /* Ícone de lápis um pouco menor */
+}
+.study-planner-action-btn.edit:hover {
+    color: #3498db;
+    background-color: #ebf8ff;
+}
+
+@media (max-width: 768px) {
+    .study-planner-layout {
+        flex-direction: column;
+    }
+    
+    .study-planner-left-panel, .study-planner-right-panel {
+        width: 100%;
+    }
+}

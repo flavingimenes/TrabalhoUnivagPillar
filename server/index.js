@@ -17,46 +17,110 @@ app.use(cors({
 
 app.use(express.json());
 
-// --- Rotas ---
+// --- Rotas Existentes ---
 
 app.get('/', (req, res) => {
   res.send('API do sistema de login está funcionando!');
 });
 
-// =======================================================
-// NOVA ROTA: BUSCAR CONTEÚDO DA HOME
-// =======================================================
 app.get('/content/home', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        
-        // Tenta buscar os dados. Se a tabela não existir, vai dar erro aqui.
         const query = "SELECT section_key, content_text FROM site_content";
         const rows = await conn.query(query);
 
-        // Transforma o Array do banco em um Objeto JSON simples
-        // De: [{ section_key: 'titulo', content_text: 'Olá' }]
-        // Para: { titulo: 'Olá' }
         const contentMap = {};
         rows.forEach(row => {
             contentMap[row.section_key] = row.content_text;
         });
-
         res.json(contentMap);
-
     } catch (error) {
         console.error("Erro ao buscar /content/home:", error);
-        // Retorna erro 500 para o front saber que falhou
-        res.status(500).json({ error: 'Erro ao buscar conteúdo. Verifique se a tabela site_content foi criada no banco.' });
+        res.status(500).json({ error: 'Erro ao buscar conteúdo.' });
     } finally {
         if (conn) conn.release();
     }
 });
 
-/**
- * ROTA DE REGISTRO
- */
+// =======================================================
+// ROTAS DO CALENDÁRIO / PLANNER (NOVAS)
+// =======================================================
+
+// 1. GET: Buscar anotações
+app.get('/api/annotations', async (req, res) => {
+    const userId = req.query.userId;
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        // Nota: Se você implementar autenticação JWT depois, pegue o ID do req.user
+        const rows = await conn.query("SELECT * FROM study_annotations WHERE user_id = ?", [userId]);
+        res.json(rows);
+    } catch (error) {
+        console.error("Erro ao buscar anotações:", error);
+        res.status(500).json({ error: "Erro ao buscar dados." });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+// 2. POST: Criar anotação
+app.post('/api/annotations', async (req, res) => {
+    const { user_id, title, annotation_date, start_time, end_time, subject_type } = req.body;
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const query = "INSERT INTO study_annotations (user_id, title, annotation_date, start_time, end_time, subject_type) VALUES (?, ?, ?, ?, ?, ?)";
+        const result = await conn.query(query, [user_id, title, annotation_date, start_time, end_time, subject_type]);
+        
+        // O driver MariaDB retorna insertId como BigInt, precisamos converter para Number para o JSON não quebrar
+        res.json({ id: Number(result.insertId), ...req.body });
+    } catch (error) {
+        console.error("Erro ao criar anotação:", error);
+        res.status(500).json({ error: "Erro ao salvar dados." });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+// 3. PUT: Atualizar anotação
+app.put('/api/annotations/:id', async (req, res) => {
+    const id = req.params.id;
+    const { title, start_time, end_time, subject_type } = req.body;
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const query = "UPDATE study_annotations SET title = ?, start_time = ?, end_time = ?, subject_type = ? WHERE id = ?";
+        await conn.query(query, [title, start_time, end_time, subject_type, id]);
+        res.json({ message: "Atualizado com sucesso" });
+    } catch (error) {
+        console.error("Erro ao atualizar anotação:", error);
+        res.status(500).json({ error: "Erro ao atualizar dados." });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+// 4. DELETE: Remover anotação
+app.delete('/api/annotations/:id', async (req, res) => {
+    const id = req.params.id;
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        await conn.query("DELETE FROM study_annotations WHERE id = ?", [id]);
+        res.json({ message: "Deletado com sucesso" });
+    } catch (error) {
+        console.error("Erro ao deletar anotação:", error);
+        res.status(500).json({ error: "Erro ao deletar dados." });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+// =======================================================
+// ROTAS DE AUTENTICAÇÃO (EXISTENTES)
+// =======================================================
+
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
 
@@ -86,9 +150,6 @@ app.post('/register', async (req, res) => {
   }
 });
 
-/**
- * ROTA DE LOGIN
- */
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -117,7 +178,7 @@ app.post('/login', async (req, res) => {
         const tokenPayload = { userId: user.id, email: user.email };
         const token = jwt.sign(tokenPayload, secret, { expiresIn: '1h' }); 
 
-        res.json({ message: 'Login bem-sucedido!', token: token });
+        res.json({ message: 'Login bem-sucedido!', token: token, userId: user.id }); // Retorna o ID também para o front usar
 
     } catch (error) {
         console.error(error);

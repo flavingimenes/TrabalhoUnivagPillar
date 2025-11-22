@@ -56,3 +56,21 @@ INSERT INTO site_content (section_key, content_text) VALUES
 ('cta_title', 'Pronto para transformar seus estudos?'),
 ('cta_desc', 'Comece gratuitamente e descubra uma nova forma de aprender e se organizar.'),
 ('footer_text', '© 2025 SeuProjeto. Todos os direitos reservados.');
+
+USE Pillar;
+
+-- Tabela para armazenar as anotações do Planner
+CREATE TABLE IF NOT EXISTS study_annotations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,            -- Vincula a anotação ao usuário (tabela users)
+    title VARCHAR(255) NOT NULL,     -- O título "O que você vai estudar?"
+    annotation_date DATE NOT NULL,   -- Data para posicionar no calendário (YYYY-MM-DD)
+    start_time TIME,                 -- Horário de início
+    end_time TIME,                   -- Horário de fim
+    subject_type VARCHAR(50) NOT NULL, -- Tipo da matéria ('matematica', 'historia', etc)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- Garante que se o usuário for deletado, as anotações também somem
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
