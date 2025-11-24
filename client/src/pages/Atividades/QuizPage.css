@@ -1,0 +1,252 @@
+/* Container Principal */
+.qp-root-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fa; /* Cor de fundo suave */
+}
+
+.qp-main-layout {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Estado Vazio */
+.qp-empty-state {
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Botões Gerais */
+.qp-btn-primary {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.qp-btn-primary:hover {
+  background-color: #4338ca;
+}
+
+/* --- Quiz Ativo --- */
+.qp-active-view {
+  width: 100%;
+  max-width: 800px;
+}
+
+.qp-progress-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.qp-btn-back {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.qp-progress-bg {
+  flex: 1;
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.qp-progress-fill {
+  height: 100%;
+  background-color: #4f46e5;
+  transition: width 0.3s ease;
+}
+
+.qp-question-container {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.qp-topic-badge {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.qp-question-title {
+  margin-top: 16px;
+  margin-bottom: 32px;
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
+.qp-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.qp-option-btn {
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.qp-option-btn:hover {
+  border-color: #4f46e5;
+  background-color: #f5f7ff;
+}
+
+/* --- Resultados --- */
+.qp-result-view {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.qp-score-header {
+  margin-bottom: 30px;
+}
+
+.qp-score-circle {
+  width: 120px;
+  height: 120px;
+  background: #4f46e5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.qp-score-circle small {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Recomendações */
+.qp-recommendation-box {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.qp-tags-wrapper {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.qp-topic-tag {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Cartões de Resposta */
+.qp-answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.qp-answer-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 5px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.qp-card-correct {
+  border-left-color: #22c55e; /* Verde */
+}
+
+.qp-card-wrong {
+  border-left-color: #ef4444; /* Vermelho */
+}
+
+.qp-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.qp-status-badge {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.qp-card-correct .qp-status-badge { color: #22c55e; }
+.qp-card-wrong .qp-status-badge { color: #ef4444; }
+
+.qp-question-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.qp-selected-text {
+  margin-bottom: 8px;
+  color: #475569;
+}
+
+.qp-correction-box {
+  background: #fef2f2;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.qp-explanation {
+  margin-top: 6px;
+  font-style: italic;
+  color: #64748b;
+}
+
+/* Animação simples */
+.fade-in {
+  animation: qpFadeIn 0.5s ease-in;
+}
+
+@keyframes qpFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

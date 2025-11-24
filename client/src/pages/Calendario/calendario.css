@@ -59,7 +59,7 @@
 /* --- CALENDÁRIO (Esquerda) --- */
 .study-planner-left-panel {
     flex: 2;
-    min-width: 350px;
+    height: 470px;
     background: white;
     border-radius: 16px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.08);
