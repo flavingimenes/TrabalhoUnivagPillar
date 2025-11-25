@@ -87,6 +87,63 @@ app.get('/api/quiz/:subjectId', async (req, res) => {
     }
 });
 
+// 3. POST: Guardar o resultado do Quiz (NOVO)
+app.post('/api/quiz/save-result', async (req, res) => {
+    const { userId, subjectId, score, totalQuestions } = req.body;
+
+    // Validação básica
+    if (!userId || !subjectId || score === undefined || !totalQuestions) {
+        return res.status(400).json({ error: "Faltam dados para guardar o resultado." });
+    }
+
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        
+        // Calculamos a percentagem automaticamente
+        const percentage = (score / totalQuestions) * 100;
+
+        const query = `
+            INSERT INTO quiz_results (user_id, subject_id, score, total_questions, percentage) 
+            VALUES (?, ?, ?, ?, ?)
+        `;
+        
+        await conn.query(query, [userId, subjectId, score, totalQuestions, percentage]);
+
+        res.status(201).json({ message: "Resultado guardado com sucesso!" });
+
+    } catch (error) {
+        console.error("Erro ao guardar resultado:", error);
+        res.status(500).json({ error: "Erro ao guardar resultado no banco." });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+// 4. GET: Pegar o histórico de notas de um utilizador (NOVO)
+app.get('/api/quiz/history/:userId', async (req, res) => {
+    const { userId } = req.params;
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        // Fazemos um JOIN para trazer o nome da matéria também
+        const query = `
+            SELECT qr.*, s.name as subject_name 
+            FROM quiz_results qr
+            LEFT JOIN subjects s ON qr.subject_id = s.id
+            WHERE qr.user_id = ?
+            ORDER BY qr.created_at DESC
+        `;
+        const rows = await conn.query(query, [userId]);
+        res.json(rows);
+    } catch (error) {
+        console.error("Erro ao buscar histórico:", error);
+        res.status(500).json({ error: "Erro ao buscar histórico." });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
 // =======================================================
 // ROTAS DO CALENDÁRIO / PLANNER
 // =======================================================
