@@ -31,9 +31,9 @@ const User = () => {
     // 1. Buscar dados do usuário ao carregar
     useEffect(() => {
         const userId = localStorage.getItem('userId'); 
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token'); // Verifique se no Login você salva como 'token' ou 'user_token'
 
-        if (!userId || !token) {
+        if (!userId) {
             // Se não tiver login, redireciona
             navigate('/');
             return;

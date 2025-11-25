@@ -1,0 +1,15 @@
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from './AuthContext';
+
+const PrivateRoute = () => {
+    const { authenticated, loading } = useAuth();
+
+    if (loading) {
+        return <div className="flex justify-center items-center h-screen">Carregando...</div>;
+    }
+
+    return authenticated ? <Outlet /> : <Navigate to="/" />;
+};
+
+export default PrivateRoute;

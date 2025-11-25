@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useTimedError } from '../../hooks/useTimedError';
 
+// --- IMPORTANTE: Importar o Hook de Autenticação ---
+import { useAuth } from '../../routes/AuthContext'; 
+
 // Seus imports de CSS e logo
 import './form.css';
 import './logo.css';
@@ -17,6 +20,9 @@ const Login = () => {
   const [error, setError] = useTimedError(5000);
 
   const navigate = useNavigate();
+
+  // --- IMPORTANTE: Pegar a função login do contexto ---
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,13 +43,17 @@ const Login = () => {
         throw new Error(data.error || 'Falha no login');
       }
 
-      // --- CORREÇÃO AQUI ---
-      localStorage.setItem('token', data.token);
+      // --- AQUI ESTÁ A MUDANÇA MÁGICA ---
+      // Em vez de apenas salvar no localStorage manualmente assim:
+      // localStorage.setItem('token', data.token);
       
-      // ADICIONADO: Salvando o ID do usuário. Sem isso, a página de perfil trava.
+      // Nós chamamos a função do contexto. Ela salva o token E atualiza o estado do app.
+      login(data.token); 
+      
+      // Mantemos esses manuais pois são dados extras que seu app usa, 
+      // e o AuthContext básico cuida apenas do Token de acesso.
       localStorage.setItem('userId', data.userId); 
       
-      // Opcional: Se quiser usar o foco acadêmico em algum lugar do front depois
       if (data.academicFocus) {
         localStorage.setItem('academicFocus', data.academicFocus);
       }

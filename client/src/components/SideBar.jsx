@@ -157,7 +157,7 @@ const SideBar = () => {
               style={{ color: "white", width: "18px" }}
               id="pencil-icon"
             />
-            <span className="link-text">Usuário </span>
+            <span className="link-text">Perfil</span>
           </NavLink>
         </nav>
         

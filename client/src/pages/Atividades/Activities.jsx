@@ -1,19 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Activities.css"; 
-// Mantendo seus imports originais baseados no seu log de erro
+// Mantendo seus imports originais
 import SideBar from '../../components/SideBar';
 import HeaderImg from '../../assets/Imgs/bookBackground.jpg';
 
 const Activities = () => {
   const navigate = useNavigate();
 
-  // Estados
+  // Estados principais
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Buscar matérias do Banco de Dados
+  // NOVO: Estado para guardar o texto do foco do usuário
+  const [userFocus, setUserFocus] = useState('Carregando...');
+
+  // 1. Efeito para carregar e formatar o Foco do Usuário (localStorage)
+  useEffect(() => {
+    const rawFocus = localStorage.getItem('academicFocus');
+
+    const formatFocus = (key) => {
+      const map = {
+        '1_ano': '1º Ano do Ensino Médio',
+        '2_ano': '2º Ano do Ensino Médio',
+        '3_ano': '3º Ano do Ensino Médio',
+        'enem': 'Foco no ENEM'
+      };
+      return map[key] || 'Não definido';
+    };
+
+    if (rawFocus) {
+      setUserFocus(formatFocus(rawFocus));
+    } else {
+      setUserFocus('Não definido');
+    }
+  }, []);
+
+  // 2. Efeito para buscar matérias do Banco de Dados
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
@@ -43,14 +67,15 @@ const Activities = () => {
         <header>
           <img src={HeaderImg} alt="HeaderImg" className='activities-header-bg-img' />
         </header>
+        
         <div className='header-text-main'>
             <h1>
               Atividades
             </h1>
             <h3>
-              Esta seção de atividades das grades curriculares do Ensino Médio contem as principais habilidades e competências a serem desenvolvidas em cada matéria, seguindo a Base Nacional Curricular <a href="https://basenacionalcomum.mec.gov.br/abase" target='blank'>(BNCC)</a>
+              Esta seção de atividades das grades curriculares do Ensino Médio contem as principais habilidades e competências a serem desenvolvidas em cada matéria, seguindo a Base Nacional Curricular <a href="https://basenacionalcomum.mec.gov.br/abase" target='blank'>(BNCC)</a> e seu foco/ano letivo, que é: <strong style={{color: "black"}}>{userFocus}</strong>
             </h3>
-          </div>
+        </div>
         
         {/* Loading Spinner Simples com CSS */}
         {loading && (

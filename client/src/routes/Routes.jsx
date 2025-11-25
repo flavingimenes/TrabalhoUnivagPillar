@@ -1,16 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// IMPORTAÇÕES DE SEGURANÇA (Assumindo que estão na mesma pasta 'routes')
+import { AuthProvider } from './AuthContext';
+import PrivateRoute from './PrivateRoute';
+
+// Imports de Páginas Gerais
 import Login from '../pages/Forms/Login';
 import Register from '../pages/Forms/Register';
 import ErrorPage from '../pages/error/ErrorPage';
 import Home from '../pages/Home/Home';
-import PrimeiroAno from '../pages/materias/PrimeiroAno/PrimeiroAno';
-import SegundoAno from '../pages/materias/SegundoAno/SegundoAno';
-import TerceiroAno from '../pages/materias/TerceiroAno/TerceiroAno';
 import Activities from "../pages/Atividades/Activities";
 import Calendario from "../pages/Calendario/calendario.jsx";
 import QuizPage from '../pages/Atividades/QuizPage.jsx';
 import User from "../pages/Usuário/User.jsx";
 
+// Imports das Matérias Gerais (Anos)
+import PrimeiroAno from '../pages/materias/PrimeiroAno/PrimeiroAno';
+import SegundoAno from '../pages/materias/SegundoAno/SegundoAno';
+import TerceiroAno from '../pages/materias/TerceiroAno/TerceiroAno';
 
 // Imports das Matérias do Primeiro Ano
 import Portugues from "../pages/materias/PrimeiroAno/LinguaPortuguesa/Portugues.jsx";
@@ -52,69 +59,74 @@ import Quimica3 from "../pages/materias/TerceiroAno/Quimica/Quimica.jsx";
 import Sociologia3 from "../pages/materias/TerceiroAno/Sociologia/Sociologia.jsx";
 
 
-// CONFIGURAR SEGURANÇA DAS ROTAAAASSSS//
-
 function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/primeiroAno" element={<PrimeiroAno />} />
-        <Route path="/segundoAno" element={<SegundoAno />} />
-        <Route path="/terceiroAno" element={<TerceiroAno />} />
-        <Route path="/atividades" element={<Activities />} />
-        <Route path="/quiz/:subjectId" element={<QuizPage />} />
-        <Route path="/calendario" element={<Calendario />} />
-        <Route path="/usuario" element={<User />} />
+      {/* O AuthProvider envolve tudo para fornecer o estado de login */}
+      <AuthProvider>
+        <Routes>
+          
+          {/* --- ÁREA PÚBLICA (Qualquer um entra) --- */}
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
+          {/* --- ÁREA PRIVADA (O porteiro 'PrivateRoute' protege tudo aqui dentro) --- */}
+          <Route element={<PrivateRoute />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/primeiroAno" element={<PrimeiroAno />} />
+              <Route path="/segundoAno" element={<SegundoAno />} />
+              <Route path="/terceiroAno" element={<TerceiroAno />} />
+              <Route path="/atividades" element={<Activities />} />
+              <Route path="/quiz/:subjectId" element={<QuizPage />} />
+              <Route path="/calendario" element={<Calendario />} />
+              <Route path="/usuario" element={<User />} />
 
-        {/* -- ROTAS PRIMEIRO ANO -- */}
-        <Route path="/primeiroAno/portugues" element={<Portugues />} />
-        <Route path="/primeiroAno/artes" element={<Artes />} />
-        <Route path="/primeiroAno/biologia" element={<Biologia />} />
-        <Route path="/primeiroAno/educfisica" element={<EducFisica />} />
-        <Route path="/primeiroAno/filosofia" element={<Filosofia />} />
-        <Route path="/primeiroAno/fisica" element={<Fisica />} />
-        <Route path="/primeiroAno/historia" element={<Historia />} />
-        <Route path="/primeiroAno/ingles" element={<Ingles />} />
-        <Route path="/primeiroAno/matematica" element={<Matematica />} />
-        <Route path="/primeiroAno/quimica" element={<Quimica />} />
-        <Route path="/primeiroAno/sociologia" element={<Sociologia />} />
+              {/* -- ROTAS PRIMEIRO ANO -- */}
+              <Route path="/primeiroAno/portugues" element={<Portugues />} />
+              <Route path="/primeiroAno/artes" element={<Artes />} />
+              <Route path="/primeiroAno/biologia" element={<Biologia />} />
+              <Route path="/primeiroAno/educfisica" element={<EducFisica />} />
+              <Route path="/primeiroAno/filosofia" element={<Filosofia />} />
+              <Route path="/primeiroAno/fisica" element={<Fisica />} />
+              <Route path="/primeiroAno/historia" element={<Historia />} />
+              <Route path="/primeiroAno/ingles" element={<Ingles />} />
+              <Route path="/primeiroAno/matematica" element={<Matematica />} />
+              <Route path="/primeiroAno/quimica" element={<Quimica />} />
+              <Route path="/primeiroAno/sociologia" element={<Sociologia />} />
 
+              {/* -- ROTAS SEGUNDO ANO -- */}
+              <Route path="/segundoAno/portugues" element={<Portugues2 />} />
+              <Route path="/segundoAno/artes" element={<Artes2 />} />
+              <Route path="/segundoAno/biologia" element={<Biologia2 />} />
+              <Route path="/segundoAno/educfisica" element={<EducFisica2 />} />
+              <Route path="/segundoAno/filosofia" element={<Filosofia2 />} />
+              <Route path="/segundoAno/fisica" element={<Fisica2 />} />
+              <Route path="/segundoAno/historia" element={<Historia2 />} />
+              <Route path="/segundoAno/ingles" element={<Ingles2 />} />
+              <Route path="/segundoAno/matematica" element={<Matematica2 />} />
+              <Route path="/segundoAno/quimica" element={<Quimica2 />} />
+              <Route path="/segundoAno/sociologia" element={<Sociologia2 />} />
 
-        {/* -- ROTAS SEGUNDO ANO -- */}
-        <Route path="/segundoAno/portugues" element={<Portugues2 />} />
-        <Route path="/segundoAno/artes" element={<Artes2 />} />
-        <Route path="/segundoAno/biologia" element={<Biologia2 />} />
-        <Route path="/segundoAno/educfisica" element={<EducFisica2 />} />
-        <Route path="/segundoAno/filosofia" element={<Filosofia2 />} />
-        <Route path="/segundoAno/fisica" element={<Fisica2 />} />
-        <Route path="/segundoAno/historia" element={<Historia2 />} />
-        <Route path="/segundoAno/ingles" element={<Ingles2 />} />
-        <Route path="/segundoAno/matematica" element={<Matematica2 />} />
-        <Route path="/segundoAno/quimica" element={<Quimica2 />} />
-        <Route path="/segundoAno/sociologia" element={<Sociologia2 />} />
+              {/* -- ROTAS TERCEIRO ANO -- */}
+              <Route path="/terceiroAno/portugues" element={<Portugues3 />} />
+              <Route path="/terceiroAno/artes" element={<Artes3 />} />
+              <Route path="/terceiroAno/biologia" element={<Biologia3 />} />
+              <Route path="/terceiroAno/educfisica" element={<EducFisica3 />} />
+              <Route path="/terceiroAno/filosofia" element={<Filosofia3 />} />
+              <Route path="/terceiroAno/fisica" element={<Fisica3 />} />
+              <Route path="/terceiroAno/historia" element={<Historia3 />} />
+              <Route path="/terceiroAno/ingles" element={<Ingles3 />} />
+              <Route path="/terceiroAno/matematica" element={<Matematica3 />} />
+              <Route path="/terceiroAno/quimica" element={<Quimica3 />} />
+              <Route path="/terceiroAno/sociologia" element={<Sociologia3 />} />
+          </Route>
+          {/* --- FIM DA ÁREA PRIVADA --- */}
 
-
-        {/* -- ROTAS TERCEIRO ANO -- */}
-        <Route path="/terceiroAno/portugues" element={<Portugues3 />} />
-        <Route path="/terceiroAno/artes" element={<Artes3 />} />
-        <Route path="/terceiroAno/biologia" element={<Biologia3 />} />
-        <Route path="/terceiroAno/educfisica" element={<EducFisica3 />} />
-        <Route path="/terceiroAno/filosofia" element={<Filosofia3 />} />
-        <Route path="/terceiroAno/fisica" element={<Fisica3 />} />
-        <Route path="/terceiroAno/historia" element={<Historia3 />} />
-        <Route path="/terceiroAno/ingles" element={<Ingles3 />} />
-        <Route path="/terceiroAno/matematica" element={<Matematica3 />} />
-        <Route path="/terceiroAno/quimica" element={<Quimica3 />} />
-        <Route path="/terceiroAno/sociologia" element={<Sociologia3 />} />
-
-
-        {/* -- ROTA DE ERRO -- */}
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+          {/* Rota de Erro (Geralmente pública para não travar o usuário) */}
+          <Route path="*" element={<ErrorPage />} />
+          
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
