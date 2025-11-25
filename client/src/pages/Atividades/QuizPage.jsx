@@ -1,28 +1,102 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { quizzes, subjects } from '../../utils/quizData.js';
 import SideBar from '../../components/SideBar';
-import './QuizPage.css';
+import './QuizPage.css'; // Mantendo seu CSS original
 
 const QuizPage = () => {
   const { subjectId } = useParams();
   const navigate = useNavigate();
-  
-  const questions = quizzes[subjectId] || [];
-  const subjectInfo = subjects.find(s => s.id === subjectId);
 
+  // Estados para dados do servidor
+  const [questions, setQuestions] = useState([]);
+  const [subjectName, setSubjectName] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Estados do Jogo
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
 
-  // --- Renderização: Estado Vazio (Sem perguntas) ---
+  // --- BUSCAR DADOS DO BANCO (MySQL/Node) ---
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        
+        // 1. Busca as perguntas da matéria específica
+        const responseQuiz = await fetch(`http://localhost:3001/api/quiz/${subjectId}`);
+        if (!responseQuiz.ok) throw new Error('Erro ao buscar quiz');
+        const dataQuiz = await responseQuiz.json();
+
+        // Mapeia os campos do Banco (snake_case) para o Front (camelCase)
+        // Isso garante que o resto do seu código continue funcionando igual
+        const mappedQuestions = dataQuiz.map(q => ({
+            id: q.id,
+            question: q.question_text,       // Banco: question_text -> Front: question
+            options: q.options,              // Já vem como array (tratado no back)
+            correctAnswer: q.correct_answer, // Banco: correct_answer -> Front: correctAnswer
+            topic: q.topic,
+            explanation: q.explanation
+        }));
+
+        setQuestions(mappedQuestions);
+
+        // 2. Busca o nome da matéria (opcional, para exibir no título)
+        const responseSubjects = await fetch('http://localhost:3001/api/subjects');
+        if (responseSubjects.ok) {
+            const dataSubjects = await responseSubjects.json();
+            const currentSubject = dataSubjects.find(s => s.id === subjectId);
+            setSubjectName(currentSubject ? currentSubject.name : subjectId);
+        }
+
+      } catch (err) {
+        console.error("Erro no fetch:", err);
+        setError("Não foi possível carregar as atividades. Verifique a conexão com o servidor.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (subjectId) {
+      fetchData();
+    }
+  }, [subjectId]);
+
+  // --- RENDERIZAÇÃO DE CARREGAMENTO ---
+  if (loading) {
+    return (
+        <div className='qp-root-container'>
+            <SideBar />
+            <div className='qp-main-layout' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <p>Carregando atividades...</p>
+            </div>
+        </div>
+    );
+  }
+
+  // --- RENDERIZAÇÃO DE ERRO ---
+  if (error) {
+    return (
+        <div className='qp-root-container'>
+            <SideBar />
+            <div className='qp-main-layout' style={{ padding: '20px' }}>
+                <h3>Ops!</h3>
+                <p>{error}</p>
+                <button className="qp-btn-primary" onClick={() => navigate('/activities')}>Voltar</button>
+            </div>
+        </div>
+    );
+  }
+
+  // --- RENDERIZAÇÃO DE ESTADO VAZIO (Sem perguntas) ---
   if (questions.length === 0) {
     return (
         <div className='qp-root-container'>
             <SideBar />
             <div className='qp-main-layout'>
                 <div className='qp-empty-state' style={{padding: '20px'}}>
-                    <h2>{subjectInfo?.name}</h2>
+                    <h2>{subjectName}</h2>
                     <p>As atividades desta matéria serão adicionadas em breve!</p>
                     <button className="qp-btn-primary" onClick={() => navigate('/activities')}>Voltar</button>
                 </div>
@@ -31,15 +105,17 @@ const QuizPage = () => {
     )
   }
 
+  // --- LÓGICA DO QUIZ (Original mantida) ---
   const handleAnswerOptionClick = (selectedOption) => {
+    const currentQ = questions[currentQuestionIndex];
     const answerObject = {
-        questionId: questions[currentQuestionIndex].id,
-        questionText: questions[currentQuestionIndex].question,
+        questionId: currentQ.id,
+        questionText: currentQ.question,
         selected: selectedOption,
-        correct: questions[currentQuestionIndex].correctAnswer,
-        isCorrect: selectedOption === questions[currentQuestionIndex].correctAnswer,
-        topic: questions[currentQuestionIndex].topic,
-        explanation: questions[currentQuestionIndex].explanation
+        correct: currentQ.correctAnswer,
+        isCorrect: selectedOption === currentQ.correctAnswer,
+        topic: currentQ.topic,
+        explanation: currentQ.explanation
     };
 
     const nextAnswers = [...userAnswers, answerObject];
@@ -67,7 +143,6 @@ const QuizPage = () => {
       <SideBar />
       <div className='qp-main-layout'>
         
-        {/* --- Renderização: Resultados --- */}
         {showResult ? (
           <div className="qp-result-view fade-in">
             <div className="qp-score-header">
@@ -91,7 +166,6 @@ const QuizPage = () => {
 
             <div className="qp-answers-list">
                 {userAnswers.map((ans, index) => (
-                    // Adicionada classe condicional específica: qp-card-correct ou qp-card-wrong
                     <div key={index} className={`qp-answer-card ${ans.isCorrect ? 'qp-card-correct' : 'qp-card-wrong'}`}>
                         <div className="qp-card-header">
                           <strong>Questão {index + 1}</strong>
@@ -99,16 +173,35 @@ const QuizPage = () => {
                         </div>
                         <p className="qp-question-text">{ans.questionText}</p>
                         
+                        {/* Exibe sempre a resposta selecionada */}
                         <p className="qp-selected-text">
                             <strong>Sua resposta:</strong> {ans.selected}
                         </p>
                         
-                        {!ans.isCorrect && (
-                            <div className="qp-correction-box">
-                                <p><strong>Correta:</strong> {ans.correct}</p>
-                                <p className="qp-explanation">{ans.explanation}</p>
-                            </div>
-                        )}
+                        {/* Caixa de Justificativa aparece SEMPRE */}
+                        <div 
+                            className="qp-correction-box" 
+                            style={{
+                                marginTop: '10px',
+                                padding: '12px',
+                                borderRadius: '8px',
+                                backgroundColor: ans.isCorrect ? '#f0fdf4' : 'rgba(254, 242, 242, 0.7)',
+                                border: `1px solid ${ans.isCorrect ? '#bbf7d0' : '#fecaca'}`,
+                                color: ans.isCorrect ? '#166534' : '#991b1b'
+                            }}
+                        >
+                            {/* Se errou, mostra qual era a correta */}
+                            {!ans.isCorrect && (
+                                <p style={{marginBottom: '5px'}}>
+                                    <strong>Correta:</strong> {ans.correct}
+                                </p>
+                            )}
+                            
+                            {/* Justificativa aparece sempre */}
+                            <p className="qp-explanation">
+                                <strong>Justificativa:</strong> {ans.explanation}
+                            </p>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -116,7 +209,6 @@ const QuizPage = () => {
             <button className="qp-btn-primary" onClick={() => navigate('/atividades')}>Concluir Revisão</button>
           </div>
         ) : (
-          /* --- Renderização: Quiz Ativo (Pergunta Atual) --- */
           <div className="qp-active-view fade-in">
             <div className="qp-progress-header">
                 <button className="qp-btn-back" onClick={() => navigate('/atividades')}>✕ Sair</button>
@@ -130,7 +222,7 @@ const QuizPage = () => {
             </div>
 
             <div className="qp-question-container">
-                <span className="qp-topic-badge">{subjectInfo?.name}</span>
+                <span className="qp-topic-badge">{subjectName || subjectId}</span>
                 <h2 className="qp-question-title">{questions[currentQuestionIndex].question}</h2>
                 
                 <div className="qp-options-grid">

@@ -13,6 +13,9 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  // NOVO: Estado para o foco acadêmico
+  const [academicFocus, setAcademicFocus] = useState('');
+  
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
@@ -28,7 +31,7 @@ const Register = () => {
     }
   }, [error]);
 
-  // Sua função 'handleSubmit' (sem alterações na lógica)
+  // Sua função 'handleSubmit' atualizada
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -44,13 +47,24 @@ const Register = () => {
       return;
     }
 
+    // Validação do novo campo
+    if (!academicFocus) {
+      setError('Por favor, selecione seu ano letivo ou foco.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3001/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        // Enviando o novo campo no corpo da requisição
+        body: JSON.stringify({ 
+          email, 
+          password, 
+          academicFocus 
+        }),
       });
 
       const data = await response.json();
@@ -126,6 +140,34 @@ const Register = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+            </div>
+
+            {/* NOVO CAMPO: SELETOR DE FOCO/ANO */}
+            <div className='form-group'>
+              <label htmlFor='academicFocus'>Seu Foco / Ano Letivo:</label>
+              <select
+                id="academicFocus"
+                name="academicFocus"
+                value={academicFocus}
+                onChange={(e) => setAcademicFocus(e.target.value)}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px 15px',
+                  borderRadius: '8px',
+                  border: '2px solid #e2e8f0', // Mantendo consistência visual genérica caso falte CSS
+                  backgroundColor: '#fff',
+                  fontSize: '1rem',
+                  marginTop: '5px',
+                  outline: 'none'
+                }}
+              >
+                <option value="" disabled>Selecione uma opção...</option>
+                <option value="1_ano">1º Ano do Ensino Médio</option>
+                <option value="2_ano">2º Ano do Ensino Médio</option>
+                <option value="3_ano">3º Ano do Ensino Médio</option>
+                <option value="enem">Somente ENEM</option>
+              </select>
             </div>
 
             {/* Criamos uma linha para colocar os campos lado a lado */}

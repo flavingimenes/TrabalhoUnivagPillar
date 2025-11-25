@@ -5,8 +5,10 @@
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-color: #f3f4f6; /* Cinza claro suave */
-  overflow: hidden; /* Impede scroll na janela inteira */
+  background-color: #f3f4f6;
+  /* Cinza claro suave */
+  overflow: hidden;
+  /* Impede scroll na janela inteira */
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -14,33 +16,26 @@
 .activities-main-content {
   flex: 1;
   height: 100%;
-  overflow-y: auto; /* Scroll apenas no conteúdo */
-  padding: 32px;
+  overflow-y: auto;
+  /* Scroll apenas no conteúdo */
   box-sizing: border-box;
 }
 
 /* --- Header Estilizado --- */
 .activities-header-container {
   position: relative;
-  width: 100%;
-  height: 200px;
-  border-radius: 16px;
+  width: 100vw;
+  height: 30vh;
   overflow: hidden;
   margin-bottom: 40px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: #1e293b; /* Fallback color */
 }
 
 /* Imagem de Fundo */
 .activities-header-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  transition: transform 10s ease;
+width: 100vw;
+    height: 30vh;
+    object-fit: cover;
+    object-position: center bottom;
 }
 
 /* Efeito de Zoom lento na imagem ao passar o mouse no header */
@@ -50,14 +45,12 @@
 
 /* Overlay Escuro para Legibilidade */
 .activities-header-overlay {
-  position: relative;
   z-index: 2;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 40px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%);
   color: white;
 }
 
@@ -65,7 +58,7 @@
   font-size: 2.2rem;
   margin: 0 0 8px 0;
   font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .activities-header-overlay p {
@@ -83,6 +76,8 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   padding-bottom: 40px;
+  padding: 70px;
+  padding-top: 30px;
 }
 
 /* --- Card Individual --- */
@@ -94,8 +89,8 @@
   align-items: center;
   gap: 20px;
   cursor: pointer;
-  border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   overflow: hidden;
@@ -105,21 +100,25 @@
 .activities-card-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-  border-color: #bfdbfe; /* Azul bem claro na borda */
+  border-color: #bfdbfe;
+  /* Azul bem claro na borda */
 }
 
 /* Ícone da Matéria */
 .activities-card-icon {
   width: 56px;
   height: 56px;
-  background-color: #eff6ff; /* Azul fundo */
-  color: #2563eb; /* Azul ícone */
+  background-color: #eff6ff;
+  /* Azul fundo */
+  color: #2563eb;
+  /* Azul ícone */
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
-  flex-shrink: 0; /* Impede que o ícone amasse */
+  flex-shrink: 0;
+  /* Impede que o ícone amasse */
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -158,23 +157,28 @@
 
 .activities-card-item:hover .activities-card-arrow {
   color: #2563eb;
-  transform: translateX(5px); /* Move levemente para a direita */
+  transform: translateX(5px);
+  /* Move levemente para a direita */
 }
 
 /* Responsividade Mobile */
 @media (max-width: 768px) {
   .activities-main-content {
-    padding: 20px;
+    padding-top: 60px;
   }
-  
+
   .activities-header-container {
     height: 160px;
   }
-  
+
+  .activities-header-bg-img {
+    height: 200px;
+  }
+
   .activities-header-overlay h1 {
     font-size: 1.8rem;
   }
-  
+
   .activities-header-overlay {
     padding: 0 24px;
   }

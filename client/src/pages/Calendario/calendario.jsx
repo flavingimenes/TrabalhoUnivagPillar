@@ -236,7 +236,7 @@ const Calendario = () => {
                 </header>
                 
                 <div className="study-planner-content">
-                    <h2 className="study-planner-title">PLANNER DE ESTUDOS</h2>
+                    <h2 className="study-planner-title">Calendário De Estudos</h2>
                     
                     <div className="study-planner-layout">
                         <div className="study-planner-left-panel">

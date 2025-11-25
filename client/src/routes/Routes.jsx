@@ -9,6 +9,7 @@ import TerceiroAno from '../pages/materias/TerceiroAno/TerceiroAno';
 import Activities from "../pages/Atividades/Activities";
 import Calendario from "../pages/Calendario/calendario.jsx";
 import QuizPage from '../pages/Atividades/QuizPage.jsx';
+import User from "../pages/Usuário/User.jsx";
 
 
 // Imports das Matérias do Primeiro Ano
@@ -66,6 +67,7 @@ function AppRoutes() {
         <Route path="/atividades" element={<Activities />} />
         <Route path="/quiz/:subjectId" element={<QuizPage />} />
         <Route path="/calendario" element={<Calendario />} />
+        <Route path="/usuario" element={<User />} />
 
 
         {/* -- ROTAS PRIMEIRO ANO -- */}

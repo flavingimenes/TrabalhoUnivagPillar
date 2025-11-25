@@ -17,6 +17,7 @@ import { DayHour } from "../utils/DayHour";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { MdEditCalendar } from "react-icons/md";
+import { FaUser } from "react-icons/fa6";
 
 const SideBar = () => {
   const [openMaterias, setOpenMaterias] = useState(false);
@@ -148,6 +149,15 @@ const SideBar = () => {
               id="pencil-icon"
             />{" "}
             <span className="link-text">Calendário </span>
+          </NavLink>
+
+          <NavLink to="/usuario" className="sidebar-link" onClick={handleMobileLinkClick}>
+            <FaUser
+              className="icon-sidebar"
+              style={{ color: "white", width: "18px" }}
+              id="pencil-icon"
+            />
+            <span className="link-text">Usuário </span>
           </NavLink>
         </nav>
         

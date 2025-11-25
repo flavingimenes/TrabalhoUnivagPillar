@@ -13,16 +13,14 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  // 2. SUBSTITUI O useState E O useEffect DO ERRO POR ESTA LINHA
-  // A lógica do timer de 5 segundos (5000ms) agora está dentro do 'useTimedError'
+  // Hook de erro temporizado
   const [error, setError] = useTimedError(5000);
 
   const navigate = useNavigate();
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(null); // Limpa erros anteriores ao tentar novamente
+    setError(null);
 
     try {
       const response = await fetch('http://localhost:3001/login', {
@@ -39,18 +37,27 @@ const Login = () => {
         throw new Error(data.error || 'Falha no login');
       }
 
+      // --- CORREÇÃO AQUI ---
       localStorage.setItem('token', data.token);
+      
+      // ADICIONADO: Salvando o ID do usuário. Sem isso, a página de perfil trava.
+      localStorage.setItem('userId', data.userId); 
+      
+      // Opcional: Se quiser usar o foco acadêmico em algum lugar do front depois
+      if (data.academicFocus) {
+        localStorage.setItem('academicFocus', data.academicFocus);
+      }
+      // ---------------------
+
       navigate('/home');
 
     } catch (err) {
-      // Ao chamar setError, o Hook 'useTimedError' iniciará o timer
       setError(err.message); 
       console.error('Erro no login:', err);
     }
   };
 
   return (
-    // O container principal split-screen
     <div className='register-container'>
 
       {/* PAINEL ESQUERDO (BRANDING) */}
@@ -118,7 +125,6 @@ const Login = () => {
               />
             </div>
 
-            {/* A exibição do erro continua funcionando igual */}
             {error && <p className="form-error">{error}</p>}
 
             <button type="submit" className='button'>

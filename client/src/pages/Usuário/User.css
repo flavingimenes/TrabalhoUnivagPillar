@@ -1,0 +1,295 @@
+/* --- CONFIGURAÇÃO DAS FONTES (CAMINHOS ABSOLUTOS) --- */
+/* Certifique-se de que a pasta 'assets' está dentro de 'public' */
+
+@font-face {
+  font-family: "SfProDisplayHeavyItalic";
+  src: url("/assets/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "SfProDisplayMedium";
+  src: url("/assets/sf-pro-display/SFPRODISPLAYMEDIUM.OTF") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SfProDisplayRegular";
+  src: url("/assets/sf-pro-display/SFPRODISPLAYREGULAR.OTF") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* --- RESET E GLOBAIS --- */
+.user-profile-root {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+
+  /* AQUI APLICAMOS SUAS FONTES CARREGADAS ACIMA */
+  font-family: "SfProDisplayRegular", "SfProDisplayMedium", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* --- LAYOUT PRINCIPAL --- */
+.user-profile-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* --- HEADER / BANNER --- */
+.user-profile-header {
+  width: 100%;
+  height: 220px;
+  position: relative;
+}
+
+.user-profile-header-img {
+  width: 100vw;
+  height: 30vh;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+/* --- CONTEÚDO CENTRAL --- */
+.user-profile-content {
+  padding: 50px;
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
+
+.user-profile-title {
+  font-family: "SfProDisplayMedium", sans-serif;
+  /* Usando a variante Medium para o título */
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Ajuste caso o título fique fora do banner em telas menores */
+@media (max-width: 768px) {
+  .user-profile-title {
+    color: #333;
+    text-shadow: none;
+    margin-top: 70px;
+    /* Empurra para baixo do banner */
+  }
+
+  .user-profile-content {
+    margin-top: 0;
+  }
+}
+
+.user-profile-loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 50px;
+}
+
+/* --- CARD DE PERFIL --- */
+.user-profile-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* --- GRUPOS DE INFORMAÇÃO --- */
+.user-profile-info-group {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.user-profile-info-group:last-child {
+  border-bottom: none;
+}
+
+.user-profile-label {
+  display: block;
+  font-family: "SfProDisplayMedium", sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8898aa;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.user-profile-value {
+  font-size: 1.1rem;
+  color: #32325d;
+  font-weight: 500;
+}
+
+/* --- SENHA --- */
+.user-profile-password-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-profile-password-display {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  color: #32325d;
+  width: 120px;
+  letter-spacing: 3px;
+}
+
+.user-profile-btn-toggle {
+  background-color: #5e72e4;
+  /* Azul arroxeado */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: "SfProDisplayMedium", sans-serif;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.user-profile-btn-toggle:hover {
+  background-color: #324cdd;
+  transform: translateY(-1px);
+}
+
+/* --- FORMULÁRIO DE ALTERAÇÃO --- */
+.user-profile-form {
+  margin-top: 30px;
+  background-color: #f6f9fc;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-profile-subtitle {
+  margin-top: 0;
+  color: #32325d;
+  font-family: "SfProDisplayMedium", sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.user-profile-input-group {
+  margin-bottom: 20px;
+}
+
+.user-profile-label-sm {
+  display: block;
+  font-size: 0.9rem;
+  color: #525f7f;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.user-profile-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cad1d7;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.user-profile-input:focus {
+  border-color: #5e72e4;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(94, 114, 228, 0.1);
+}
+
+/* Layout em colunas para senha */
+.user-profile-row-split {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.user-profile-col {
+  flex: 1;
+}
+
+/* Botão Salvar */
+.user-profile-btn-save {
+  width: 100%;
+  padding: 12px;
+  background-color: #2dce89;
+  /* Verde sucesso */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.user-profile-btn-save:hover {
+  background-color: #24a46d;
+}
+
+/* --- MENSAGENS DE FEEDBACK --- */
+.user-profile-message {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.user-profile-success {
+  background-color: #e6fffa;
+  color: #234e52;
+  border: 1px solid #b2f5ea;
+}
+
+.user-profile-error {
+  background-color: #fff5f5;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .user-profile-root {
+    flex-direction: column;
+  }
+
+  .user-profile-row-split {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .user-profile-card {
+    padding: 25px;
+  }
+
+  .user-profile-content {
+    padding: 15px;
+  }
+}
