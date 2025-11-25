@@ -264,3 +264,14 @@ INSERT INTO questions (subject_id, question_text, options, correct_answer, topic
 ('sociologia', 'Zygmunt Bauman criou o conceito de:', '["Sociedade do Espetáculo", "Modernidade Líquida", "Fim da História", "Aldeia Global"]', 'Modernidade Líquida', 'Sociologia Contemporânea', 'Refere-se à fluidez e instabilidade das relações humanas no mundo moderno.'),
 ('sociologia', 'O processo de socialização é:', '["Fazer amigos em festas", "O aprendizado e interiorização dos valores e normas da sociedade", "O uso de redes sociais", "A estatização de empresas"]', 'O aprendizado e interiorização dos valores e normas da sociedade', 'Conceitos Básicos', 'Começa na família (socialização primária) e continua na escola/trabalho (secundária).'),
 ('sociologia', 'A Desigualdade Social no Brasil é historicamente marcada por:', '["Herança colonial e escravista", "Falta de recursos naturais", "Excesso de guerras externas", "Clima tropical"]', 'Herança colonial e escravista', 'Desigualdade', 'A concentração de terras e renda tem raízes na colonização e escravidão.');
+
+CREATE TABLE quiz_results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    subject_id INT NOT NULL,  -- O ID da matéria (ex: 1 para Matemática)
+    score INT NOT NULL,       -- Quantas o aluno acertou
+    total_questions INT NOT NULL, -- Total de perguntas no quiz
+    percentage DECIMAL(5,2),  -- Opcional: A percentagem de acerto (ex: 80.00)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
