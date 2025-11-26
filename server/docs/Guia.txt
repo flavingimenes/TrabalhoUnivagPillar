@@ -1,0 +1,73 @@
+# Dependências do Projeto (Back-end Node.js)
+
+Este projeto utiliza um conjunto de dependências essenciais para garantir segurança, organização e comunicação eficiente entre cliente e servidor. A seguir estão descritas cada uma delas e sua finalidade.
+
+---
+
+## Dependências Principais
+
+### **1. express**
+
+Framework minimalista para criação de servidores HTTP.
+Responsável por rotas, middlewares e toda a estrutura do back-end.
+
+> **Função:** Base do servidor.
+
+---
+
+### **2. mariadb**
+
+Driver oficial para conectar o Node.js ao banco de dados **MariaDB**.
+
+> **Função:** Realiza consultas, conexões e operações no banco.
+
+---
+
+### **3. cors**
+
+Middleware que habilita o *Cross-Origin Resource Sharing*.
+Permite que o front-end e o back-end se comuniquem mesmo estando em portas diferentes (ex.: `3001` ⇄ `5173`).
+
+> **Função:** Liberar acesso entre domínios/portas distintas.
+
+---
+
+### **4. bcryptjs**
+
+Biblioteca para hashing seguro de senhas.
+Garante que senhas **não sejam salvas em texto puro** no banco de dados.
+
+> **Função:** Criptografar senhas de usuários.
+
+---
+
+### **5. jsonwebtoken (JWT)**
+
+Gera e valida tokens de sessão após o login.
+Esses tokens são enviados ao cliente para autenticação em rotas privadas.
+
+> **Função:** Autenticação baseada em tokens.
+
+---
+
+### **6. dotenv**
+
+Permite gerenciar variáveis de ambiente através do arquivo `.env`, como:
+
+* credenciais do banco de dados,
+* portas,
+* chaves secretas de JWT.
+
+> **Função:** Segurança e configuração externa.
+
+---
+
+## 🛠️ Dependências de Desenvolvimento
+
+### **7. nodemon** *(opcional, mas recomendado)*
+
+Monitora arquivos do projeto e reinicia automaticamente o servidor ao salvar alterações.
+
+> **Função:** Facilitar o desenvolvimento, evitando reiniciar manualmente.
+
+---
