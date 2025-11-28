@@ -74,6 +74,8 @@ const Activities = () => {
             </h1>
             <h3>
               Esta seção de atividades das grades curriculares do Ensino Médio contem as principais habilidades e competências a serem desenvolvidas em cada matéria, seguindo a Base Nacional Curricular <a href="https://basenacionalcomum.mec.gov.br/abase" target='_blank' rel="noopener noreferrer">(BNCC)</a> e seu foco/ano letivo, que é: <strong style={{color: "black"}}>{userFocus}</strong>
+              <br /><br />
+              Logo abaixo, escolha uma matéria para iniciar um teste rápido com <strong>20 questões aleatórias!</strong> Depois de finalizar, você poderá ver seu desempenho e gerar reforço com base nos tópicos que teve mais dificuldade.
             </h3>
         </div>
         

@@ -250,3 +250,51 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@media (max-width: 768px) {
+  
+  /* 1. Muda a direção do layout principal para coluna e reduz o padding */
+  .qp-root-container {
+    flex-direction: column; 
+  }
+
+  .qp-main-layout {
+    padding: 5rem 1rem; /* Reduz padding externo (de 32px para 16px) */
+    display: block; /* Remove o flex center para evitar achatamento vertical */
+  }
+
+  /* 2. Ajuste crítico para a Barra de Progresso não sumir */
+  .qp-progress-header {
+    gap: 10px; /* Reduz o espaço entre os elementos */
+    margin-bottom: 20px;
+  }
+
+  .qp-progress-bg {
+    /* Garante que a barra tenha um tamanho mínimo e não seja esmagada */
+    min-width: 50px; 
+    flex-shrink: 1; /* Permite encolher, mas respeitando o min-width */
+  }
+
+  /* 3. Ajuste do Cartão da Pergunta */
+  .qp-question-container {
+    padding: 20px; /* Reduz padding interno (de 40px para 20px) */
+    width: 100%;   /* Garante uso total da largura disponível */
+    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+  }
+
+  .qp-question-title {
+    font-size: 1.2rem; /* Diminui um pouco o tamanho da fonte da pergunta */
+    margin-bottom: 20px;
+  }
+
+  /* 4. Ajuste dos botões de opção */
+  .qp-option-btn {
+    padding: 12px; /* Botões mais compactos */
+    font-size: 0.95rem;
+  }
+
+  /* 5. Ajuste do Botão de Voltar (Sair) */
+  .qp-btn-back {
+    font-size: 0.9rem; /* Texto um pouco menor */
+  }
+}

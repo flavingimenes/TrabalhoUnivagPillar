@@ -13,7 +13,7 @@ const QuizPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // NOVO: Estado para controlar o loading do botão de gerar novas atividades
+  // Estado para controlar o loading do botão de gerar novas atividades
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Estados do Jogo
@@ -27,7 +27,7 @@ const QuizPage = () => {
       try {
         setLoading(true);
         
-        // 1. Busca as perguntas da matéria específica
+        // 1. Busca as perguntas da matéria específica (O Backend limita a 20)
         const responseQuiz = await fetch(`http://localhost:3001/api/quiz/${subjectId}`);
         if (!responseQuiz.ok) throw new Error('Erro ao buscar quiz');
         const dataQuiz = await responseQuiz.json();
@@ -88,6 +88,21 @@ const QuizPage = () => {
     }
   };
 
+  // --- FUNÇÃO PARA VOLTAR QUESTÃO ---
+  const handlePreviousStep = () => {
+    if (currentQuestionIndex > 0) {
+      // 1. Volta o índice visual
+      setCurrentQuestionIndex(prev => prev - 1);
+      
+      // 2. Remove a resposta anterior do array de respostas
+      setUserAnswers(prev => {
+        const newAnswers = [...prev];
+        newAnswers.pop(); 
+        return newAnswers;
+      });
+    }
+  };
+
   const getStudyRecommendations = () => {
     const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
     const topicCounts = {};
@@ -97,11 +112,31 @@ const QuizPage = () => {
     return Object.keys(topicCounts);
   };
 
-  // NOVO: Função para gerar novas atividades baseadas nos erros
+  // --- FUNÇÃO DE FEEDBACK DE NOTA ---
+  const getPerformanceFeedback = () => {
+    const score = userAnswers.filter(a => a.isCorrect).length;
+    const total = questions.length;
+    if (total === 0) return { message: "", color: "#000" };
+
+    const percentage = (score / total) * 100;
+
+    if (percentage === 100) {
+      return { title: "Perfeito! 🌟", message: "Você dominou totalmente este conteúdo!", color: "#16a34a" };
+    } else if (percentage >= 80) {
+      return { title: "Excelente! 🚀", message: "Quase gabaritou! Continue assim.", color: "#16a34a" };
+    } else if (percentage >= 60) {
+      return { title: "Muito Bom! 👍", message: "Você está no caminho certo.", color: "#ca8a04" };
+    } else if (percentage >= 40) {
+      return { title: "Bom esforço 💪", message: "Mas vale a pena revisar alguns pontos.", color: "#d97706" };
+    } else {
+      return { title: "Vamos revisar? 📚", message: "Use o botão abaixo para reforçar o conteúdo.", color: "#dc2626" };
+    }
+  };
+
+  // --- FUNÇÃO: GERAR REFORÇO (ESTUDO SUGERIDO) ---
   const handleGenerateReinforcement = async () => {
     const weakTopics = getStudyRecommendations();
     
-    // Se não houver tópicos a melhorar, apenas retorna (ou mostra alerta)
     if (weakTopics.length === 0) {
         alert("Parabéns! Você acertou tudo, não há necessidade de reforço imediato.");
         return;
@@ -110,8 +145,9 @@ const QuizPage = () => {
     try {
         setIsGenerating(true);
 
-        // Envia os tópicos fracos para o backend gerar novas questões
-        // Nota: Você precisará criar essa rota '/api/quiz/generate' no seu Node/Express
+        // Pega IDs atuais para evitar repetição imediata
+        const currentIds = questions.map(q => q.id);
+
         const response = await fetch('http://localhost:3001/api/quiz/generate', {
             method: 'POST',
             headers: {
@@ -119,8 +155,9 @@ const QuizPage = () => {
             },
             body: JSON.stringify({
                 subjectId: subjectId,
-                topics: weakTopics, // Envia ["Geometria", "Álgebra"] etc.
-                count: 5 // Quantas questões novas você quer
+                topics: weakTopics, 
+                count: 10, // <--- AQUI ESTÁ O LIMITE DE 10 QUESTÕES PARA O REFORÇO
+                excludeIds: currentIds 
             })
         });
 
@@ -128,7 +165,11 @@ const QuizPage = () => {
 
         const newQuestionsData = await response.json();
 
-        // Mapeia novamente os dados recebidos
+        if (newQuestionsData.length === 0) {
+             alert("Não há mais questões disponíveis para estes tópicos no momento.");
+             return;
+        }
+
         const mappedNewQuestions = newQuestionsData.map(q => ({
             id: q.id,
             question: q.question_text,
@@ -138,12 +179,10 @@ const QuizPage = () => {
             explanation: q.explanation
         }));
 
-        // ATUALIZA O ESTADO PARA REINICIAR O QUIZ COM AS NOVAS PERGUNTAS
         setQuestions(mappedNewQuestions);
         setCurrentQuestionIndex(0);
         setUserAnswers([]);
         setShowResult(false);
-        // Opcional: Scroll para o topo
         window.scrollTo(0, 0);
 
     } catch (err) {
@@ -181,6 +220,7 @@ const QuizPage = () => {
     );
   }
 
+  // --- RENDERIZAÇÃO VAZIA ---
   if (questions.length === 0) {
     return (
         <div className='qp-root-container'>
@@ -209,6 +249,18 @@ const QuizPage = () => {
                   <small>/ {questions.length}</small>
                </div>
                <h2>Relatório de Desempenho</h2>
+               
+               {/* --- FEEDBACK DINÂMICO --- */}
+               {(() => {
+                    const feedback = getPerformanceFeedback();
+                    return (
+                        <div style={{ marginTop: '10px', color: feedback.color }}>
+                            <h3 style={{ margin: '0 0 5px 0', fontSize: '1.4rem' }}>{feedback.title}</h3>
+                            <p style={{ margin: 0, fontSize: '1rem', color: '#64748b' }}>{feedback.message}</p>
+                        </div>
+                    );
+               })()}
+               {/* ------------------------- */}
             </div>
 
             {getStudyRecommendations().length > 0 && (
@@ -220,10 +272,10 @@ const QuizPage = () => {
                         ))}
                     </div>
                     
-                    {/* NOVO: Botão de Melhorar Conteúdo Sugerido */}
+                    {/* Botão de Melhorar Conteúdo Sugerido */}
                     <div style={{ marginTop: '15px', textAlign: 'center' }}>
                         <button 
-                            className="qp-btn-primary" // Você pode criar uma classe qp-btn-ai se quiser diferenciar
+                            className="qp-btn-primary" 
                             style={{ backgroundColor: '#7c3aed', display: 'flex', alignItems: 'center', gap: '8px', margin: '0 auto' }}
                             onClick={handleGenerateReinforcement}
                             disabled={isGenerating}
@@ -279,14 +331,12 @@ const QuizPage = () => {
                 ))}
             </div>
             
-            {/* Mantive o botão original, mas adicionei margem superior */}
             <div style={{marginTop: '20px'}}>
                 <button className="qp-btn-primary" onClick={() => navigate('/atividades')}>Concluir Revisão</button>
             </div>
           </div>
         ) : (
           <div className="qp-active-view fade-in">
-             {/* ... (Seu código original do quiz ativo permanece igual) ... */}
             <div className="qp-progress-header">
                 <button className="qp-btn-back" onClick={() => navigate('/atividades')}>✕ Sair</button>
                 <div className="qp-progress-bg">
@@ -313,6 +363,28 @@ const QuizPage = () => {
                     </button>
                 ))}
                 </div>
+
+                {/* BOTÃO DE VOLTAR */}
+                <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-start' }}>
+                    <button 
+                        onClick={handlePreviousStep}
+                        disabled={currentQuestionIndex === 0} 
+                        style={{ 
+                            background: 'transparent', 
+                            border: '1px solid #ccc', 
+                            color: '#666',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            cursor: currentQuestionIndex === 0 ? 'not-allowed' : 'pointer',
+                            opacity: currentQuestionIndex === 0 ? 0 : 1, 
+                            transition: 'opacity 0.2s',
+                            visibility: currentQuestionIndex === 0 ? 'hidden' : 'visible'
+                        }}
+                    >
+                        ⬅ Voltar questão
+                    </button>
+                </div>
+
             </div>
           </div>
         )}
