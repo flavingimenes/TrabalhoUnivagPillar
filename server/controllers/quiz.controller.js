@@ -1,4 +1,4 @@
-const pool = require('../db');
+const pool = require('../db'); // Caminho para a pasta db
 
 async function getSubjects(req, res) {
     let conn;
@@ -21,6 +21,7 @@ async function getQuestionsBySubject(req, res) {
         conn = await pool.getConnection();
         const rows = await conn.query("SELECT * FROM questions WHERE subject_id = ?", [subjectId]);
 
+        // Faz o parse das opções caso estejam salvas como string JSON
         const formattedResults = rows.map(q => ({
             ...q,
             options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options

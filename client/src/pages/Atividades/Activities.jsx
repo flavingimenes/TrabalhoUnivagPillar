@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Activities.css"; 
-// Mantendo seus imports originais
 import SideBar from '../../components/SideBar';
 import HeaderImg from '../../assets/Imgs/bookBackground.jpg';
 
@@ -13,7 +12,7 @@ const Activities = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // NOVO: Estado para guardar o texto do foco do usuário
+  // Estado para guardar o texto do foco do usuário
   const [userFocus, setUserFocus] = useState('Carregando...');
 
   // 1. Efeito para carregar e formatar o Foco do Usuário (localStorage)
@@ -42,6 +41,7 @@ const Activities = () => {
     const fetchSubjects = async () => {
       try {
         setLoading(true);
+        // Essa URL agora está correta com o seu Back-end atualizado
         const response = await fetch('http://localhost:3001/api/subjects');
         
         if (!response.ok) throw new Error('Erro ao buscar matérias');
@@ -73,11 +73,11 @@ const Activities = () => {
               Atividades
             </h1>
             <h3>
-              Esta seção de atividades das grades curriculares do Ensino Médio contem as principais habilidades e competências a serem desenvolvidas em cada matéria, seguindo a Base Nacional Curricular <a href="https://basenacionalcomum.mec.gov.br/abase" target='blank'>(BNCC)</a> e seu foco/ano letivo, que é: <strong style={{color: "black"}}>{userFocus}</strong>
+              Esta seção de atividades das grades curriculares do Ensino Médio contem as principais habilidades e competências a serem desenvolvidas em cada matéria, seguindo a Base Nacional Curricular <a href="https://basenacionalcomum.mec.gov.br/abase" target='_blank' rel="noopener noreferrer">(BNCC)</a> e seu foco/ano letivo, que é: <strong style={{color: "black"}}>{userFocus}</strong>
             </h3>
         </div>
         
-        {/* Loading Spinner Simples com CSS */}
+        {/* Loading Spinner */}
         {loading && (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}>
                 <div className="simple-spinner" style={{ 
@@ -106,14 +106,16 @@ const Activities = () => {
                 <div 
                 key={subject.id} 
                 className="activities-card-item" 
+                // IMPORTANTE: Isso vai enviar o ID (ex: 1, 2) para a URL. 
+                // Sua página de Quiz deve estar preparada para receber um ID numérico.
                 onClick={() => navigate(`/quiz/${subject.id}`)}
                 >
                 <div className="activities-card-icon" style={{ fontSize: '2.5rem' }}>
-                    {subject.icon} {/* O ícone vem do banco como Emoji */}
+                    {subject.icon || '📚'} {/* Fallback caso o ícone venha vazio */}
                 </div>
                 <div className="activities-card-details">
                     <h3>{subject.name}</h3>
-                    <span>Quiz Geral</span> 
+                    <span>Teste Rápido</span> 
                 </div>
                 <div className="activities-card-arrow">➜</div>
                 </div>

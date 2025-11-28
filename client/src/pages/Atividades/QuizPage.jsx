@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SideBar from '../../components/SideBar';
-import './QuizPage.css'; // Mantendo seu CSS original
+import './QuizPage.css';
 
 const QuizPage = () => {
   const { subjectId } = useParams();
@@ -12,6 +12,9 @@ const QuizPage = () => {
   const [subjectName, setSubjectName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // NOVO: Estado para controlar o loading do botão de gerar novas atividades
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // Estados do Jogo
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -29,20 +32,18 @@ const QuizPage = () => {
         if (!responseQuiz.ok) throw new Error('Erro ao buscar quiz');
         const dataQuiz = await responseQuiz.json();
 
-        // Mapeia os campos do Banco (snake_case) para o Front (camelCase)
-        // Isso garante que o resto do seu código continue funcionando igual
         const mappedQuestions = dataQuiz.map(q => ({
             id: q.id,
-            question: q.question_text,       // Banco: question_text -> Front: question
-            options: q.options,              // Já vem como array (tratado no back)
-            correctAnswer: q.correct_answer, // Banco: correct_answer -> Front: correctAnswer
+            question: q.question_text,
+            options: q.options,
+            correctAnswer: q.correct_answer,
             topic: q.topic,
             explanation: q.explanation
         }));
 
         setQuestions(mappedQuestions);
 
-        // 2. Busca o nome da matéria (opcional, para exibir no título)
+        // 2. Busca o nome da matéria
         const responseSubjects = await fetch('http://localhost:3001/api/subjects');
         if (responseSubjects.ok) {
             const dataSubjects = await responseSubjects.json();
@@ -63,49 +64,7 @@ const QuizPage = () => {
     }
   }, [subjectId]);
 
-  // --- RENDERIZAÇÃO DE CARREGAMENTO ---
-  if (loading) {
-    return (
-        <div className='qp-root-container'>
-            <SideBar />
-            <div className='qp-main-layout' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <p>Carregando atividades...</p>
-            </div>
-        </div>
-    );
-  }
-
-  // --- RENDERIZAÇÃO DE ERRO ---
-  if (error) {
-    return (
-        <div className='qp-root-container'>
-            <SideBar />
-            <div className='qp-main-layout' style={{ padding: '20px' }}>
-                <h3>Ops!</h3>
-                <p>{error}</p>
-                <button className="qp-btn-primary" onClick={() => navigate('/activities')}>Voltar</button>
-            </div>
-        </div>
-    );
-  }
-
-  // --- RENDERIZAÇÃO DE ESTADO VAZIO (Sem perguntas) ---
-  if (questions.length === 0) {
-    return (
-        <div className='qp-root-container'>
-            <SideBar />
-            <div className='qp-main-layout'>
-                <div className='qp-empty-state' style={{padding: '20px'}}>
-                    <h2>{subjectName}</h2>
-                    <p>As atividades desta matéria serão adicionadas em breve!</p>
-                    <button className="qp-btn-primary" onClick={() => navigate('/activities')}>Voltar</button>
-                </div>
-            </div>
-        </div>
-    )
-  }
-
-  // --- LÓGICA DO QUIZ (Original mantida) ---
+  // --- LÓGICA DO QUIZ ---
   const handleAnswerOptionClick = (selectedOption) => {
     const currentQ = questions[currentQuestionIndex];
     const answerObject = {
@@ -138,6 +97,105 @@ const QuizPage = () => {
     return Object.keys(topicCounts);
   };
 
+  // NOVO: Função para gerar novas atividades baseadas nos erros
+  const handleGenerateReinforcement = async () => {
+    const weakTopics = getStudyRecommendations();
+    
+    // Se não houver tópicos a melhorar, apenas retorna (ou mostra alerta)
+    if (weakTopics.length === 0) {
+        alert("Parabéns! Você acertou tudo, não há necessidade de reforço imediato.");
+        return;
+    }
+
+    try {
+        setIsGenerating(true);
+
+        // Envia os tópicos fracos para o backend gerar novas questões
+        // Nota: Você precisará criar essa rota '/api/quiz/generate' no seu Node/Express
+        const response = await fetch('http://localhost:3001/api/quiz/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                subjectId: subjectId,
+                topics: weakTopics, // Envia ["Geometria", "Álgebra"] etc.
+                count: 5 // Quantas questões novas você quer
+            })
+        });
+
+        if (!response.ok) throw new Error('Falha ao gerar novas atividades');
+
+        const newQuestionsData = await response.json();
+
+        // Mapeia novamente os dados recebidos
+        const mappedNewQuestions = newQuestionsData.map(q => ({
+            id: q.id,
+            question: q.question_text,
+            options: q.options,
+            correctAnswer: q.correct_answer,
+            topic: q.topic,
+            explanation: q.explanation
+        }));
+
+        // ATUALIZA O ESTADO PARA REINICIAR O QUIZ COM AS NOVAS PERGUNTAS
+        setQuestions(mappedNewQuestions);
+        setCurrentQuestionIndex(0);
+        setUserAnswers([]);
+        setShowResult(false);
+        // Opcional: Scroll para o topo
+        window.scrollTo(0, 0);
+
+    } catch (err) {
+        console.error("Erro ao gerar reforço:", err);
+        alert("Erro ao gerar novas atividades. Tente novamente.");
+    } finally {
+        setIsGenerating(false);
+    }
+  };
+
+
+  // --- RENDERIZAÇÃO DE CARREGAMENTO ---
+  if (loading) {
+    return (
+        <div className='qp-root-container'>
+            <SideBar />
+            <div className='qp-main-layout' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <p>Carregando atividades...</p>
+            </div>
+        </div>
+    );
+  }
+
+  // --- RENDERIZAÇÃO DE ERRO ---
+  if (error) {
+    return (
+        <div className='qp-root-container'>
+            <SideBar />
+            <div className='qp-main-layout' style={{ padding: '20px' }}>
+                <h3>Ops!</h3>
+                <p>{error}</p>
+                <button className="qp-btn-primary" onClick={() => navigate('/atividades')}>Voltar</button>
+            </div>
+        </div>
+    );
+  }
+
+  if (questions.length === 0) {
+    return (
+        <div className='qp-root-container'>
+            <SideBar />
+            <div className='qp-main-layout'>
+                <div className='qp-empty-state' style={{padding: '20px'}}>
+                    <h2>{subjectName}</h2>
+                    <p>As atividades desta matéria serão adicionadas em breve!</p>
+                    <button className="qp-btn-primary" onClick={() => navigate('/activities')}>Voltar</button>
+                </div>
+            </div>
+        </div>
+    )
+  }
+
   return (
     <div className='qp-root-container'>
       <SideBar />
@@ -161,6 +219,25 @@ const QuizPage = () => {
                             <span key={index} className="qp-topic-tag">{topic}</span>
                         ))}
                     </div>
+                    
+                    {/* NOVO: Botão de Melhorar Conteúdo Sugerido */}
+                    <div style={{ marginTop: '15px', textAlign: 'center' }}>
+                        <button 
+                            className="qp-btn-primary" // Você pode criar uma classe qp-btn-ai se quiser diferenciar
+                            style={{ backgroundColor: '#7c3aed', display: 'flex', alignItems: 'center', gap: '8px', margin: '0 auto' }}
+                            onClick={handleGenerateReinforcement}
+                            disabled={isGenerating}
+                        >
+                            {isGenerating ? (
+                                <><span>Gerando...</span></>
+                            ) : (
+                                <>
+                                    <span>✨ Estudar conteúdo sugerido</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
+
                 </div>
             )}
 
@@ -173,12 +250,10 @@ const QuizPage = () => {
                         </div>
                         <p className="qp-question-text">{ans.questionText}</p>
                         
-                        {/* Exibe sempre a resposta selecionada */}
                         <p className="qp-selected-text">
                             <strong>Sua resposta:</strong> {ans.selected}
                         </p>
                         
-                        {/* Caixa de Justificativa aparece SEMPRE */}
                         <div 
                             className="qp-correction-box" 
                             style={{
@@ -190,14 +265,12 @@ const QuizPage = () => {
                                 color: ans.isCorrect ? '#166534' : '#991b1b'
                             }}
                         >
-                            {/* Se errou, mostra qual era a correta */}
                             {!ans.isCorrect && (
                                 <p style={{marginBottom: '5px'}}>
                                     <strong>Correta:</strong> {ans.correct}
                                 </p>
                             )}
                             
-                            {/* Justificativa aparece sempre */}
                             <p className="qp-explanation">
                                 <strong>Justificativa:</strong> {ans.explanation}
                             </p>
@@ -206,10 +279,14 @@ const QuizPage = () => {
                 ))}
             </div>
             
-            <button className="qp-btn-primary" onClick={() => navigate('/atividades')}>Concluir Revisão</button>
+            {/* Mantive o botão original, mas adicionei margem superior */}
+            <div style={{marginTop: '20px'}}>
+                <button className="qp-btn-primary" onClick={() => navigate('/atividades')}>Concluir Revisão</button>
+            </div>
           </div>
         ) : (
           <div className="qp-active-view fade-in">
+             {/* ... (Seu código original do quiz ativo permanece igual) ... */}
             <div className="qp-progress-header">
                 <button className="qp-btn-back" onClick={() => navigate('/atividades')}>✕ Sair</button>
                 <div className="qp-progress-bg">
