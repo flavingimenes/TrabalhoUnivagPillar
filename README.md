@@ -46,26 +46,3 @@ O projeto foi desenvolvido utilizando a stack **PERN/M** (adaptada para MariaDB)
 * **MySQL2 / Mariadb Driver:** Conectores para comunicação com o banco.
 
 ---
-
-## 🚀 Como Executar o Projeto
-
-Siga os passos abaixo para rodar o projeto em sua máquina local.
-
-### Pré-requisitos
-* Node.js instalado.
-* Servidor MariaDB rodando (XAMPP, Docker ou instalação nativa).
-
-### 1. Configuração do Banco de Dados
-Crie um banco de dados chamado `pillar` e certifique-se de ter a tabela `questions` com a seguinte estrutura (exemplo simplificado):
-
-```sql
-CREATE TABLE questions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    subject_id VARCHAR(50),
-    question_text TEXT,
-    options JSON, -- Armazena arrays ["A", "B", "C", "D"]
-    correct_answer VARCHAR(255),
-    topic VARCHAR(100),
-    explanation TEXT,
-    difficulty ENUM('facil', 'medio', 'dificil')
-);
